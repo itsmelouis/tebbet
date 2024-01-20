@@ -8,8 +8,12 @@
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
-  
-    <Application.Styles>
+
+	<Application.Resources>
+		<FontFamily x:Key="LakkiReddy">/Assets/LakkiReddy-Regular.ttf#Lakki Reddy</FontFamily>
+	</Application.Resources>
+
+	<Application.Styles>
         <FluentTheme />
     </Application.Styles>
 </Application>
