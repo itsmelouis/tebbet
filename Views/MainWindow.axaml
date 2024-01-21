@@ -10,8 +10,12 @@
         Title="Tebbet">
 
 	<Window.Background>
-		<ImageBrush Source="/Assets/mainbackground.png" />
+		<ImageBrush Stretch="Fill" Source="/Assets/mainbackground.png" />
 	</Window.Background>
+
+	<Window.Styles>
+		<StyleInclude Source="/Assets/Styles/AppStyles.axaml" />
+	</Window.Styles>
 
 	<Design.DataContext>
 		<!-- This only sets the DataContext for the previewer in an IDE,
@@ -26,16 +30,49 @@
 			<Grid>
 				<Image Source="/Assets/logo.png" Width="75" HorizontalAlignment="Left" Margin="10 9 0 7"/>
 			</Grid>
+			
 			<Grid ColumnDefinitions="auto, auto, auto, auto" RowDefinitions="auto" Grid.Column="1">
-				<Button FontSize="16" FontFamily="{StaticResource LakkiReddy}" Padding="6 6 6 0" Margin="0 4 0 0" Background="Transparent" Foreground="White" Content="Accueil" />
-				<Button FontSize="16" FontFamily="{StaticResource LakkiReddy}" Padding="6 6 6 0" Margin="0 4 0 0" HorizontalAlignment="Center" Grid.Column="1" Background="Transparent" Foreground="White" Content="Courses" />
-				<Button FontSize="16" FontFamily="{StaticResource LakkiReddy}" Padding="6 6 6 0" Margin="0 4 0 0" HorizontalAlignment="Center" Grid.Column="2" Background="Transparent" Foreground="White" Content="Classement" />
-				<Button FontSize="16" FontFamily="{StaticResource LakkiReddy}" Padding="6 6 6 0" Margin="0 4 0 0" HorizontalAlignment="Center" Grid.Column="3" Background="Transparent" Foreground="White" Content="Fidélité" />
+				<Button Classes="NavButton NavLink LakkiWhite" Content="Accueil" />
+				<Button Classes="NavButton NavLink LakkiWhite" Grid.Column="1" Content="Courses" />
+				<Button Classes="NavButton NavLink LakkiWhite" Grid.Column="2" Content="Classement" />
+				<Button Classes="NavButton NavLink LakkiWhite" Grid.Column="3" Content="Fidélité" />
 			</Grid>
+			
 			<Grid HorizontalAlignment="Right" ColumnDefinitions="auto, auto" RowDefinitions="auto" Grid.Column="2">
-				<Button FontSize="16" FontFamily="{StaticResource LakkiReddy}" Padding="6 6 6 0" Margin="0 4 0 0" Grid.Column="0" Background="Transparent" Foreground="White" Content="Connexion" />
-				<Button FontSize="16" CornerRadius="20" FontFamily="{StaticResource LakkiReddy}" Padding="12 6 12 0" Margin="10 4 15 0" Grid.Column="1" Background="#5F8C50" Foreground="White" Content="Inscription" />
+				<Button Classes="NavButton NavLink LakkiWhite" Content="Connexion" />
+				<Button Classes="NavButton RegisterButtonNav LakkiWhite" Grid.Column="1" Content="Inscription" />
 			</Grid>
+		</Grid>
+
+		<Grid Background="#5F8C50" RowDefinitions="40, Auto">
+			<TextBlock HorizontalAlignment="Center" Margin="0 5 0 0" Padding="0" Classes="LakkiWhite h1" Text="JUSQU'A 100€ OFFERTS !" />
+			<Button Classes="LakkiWhite RegisterButton" Grid.Row="1" HorizontalAlignment="Center">
+				<Button.Content>
+					<StackPanel>
+						<TextBlock>
+							<TextBlock Height="17" Text="Je m'inscris" />
+							<Image Margin="7 0 0 0" Width="15" Source="/Assets/RightArrow.png" />
+						</TextBlock>
+					</StackPanel>
+				</Button.Content>
+			</Button>
+		</Grid>
+
+		<Grid HorizontalAlignment="Center" RowDefinitions="auto, auto, auto, auto" >
+			<TabControl Margin="0">
+				<TabItem Classes="TabComingRace">
+					<TextBlock Margin="5">This is tab 1 content</TextBlock>
+				</TabItem>
+				<TabItem Classes="TabComingRace">
+					<TextBlock Margin="5">This is tab 2 content</TextBlock>
+				</TabItem>
+				<TabItem Classes="TabComingRace">
+					<TextBlock Margin="5">This is tab 3 content</TextBlock>
+				</TabItem>
+				<TabItem Classes="TabComingRace">
+					<TextBlock Margin="5">This is tab 4 content</TextBlock>
+				</TabItem>
+			</TabControl>
 		</Grid>
 	</StackPanel>
 </Window>

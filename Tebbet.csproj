@@ -9,10 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Folder Include="Assets\Styles\" />
 	<AvaloniaResource Include="Assets\*" />
     <AvaloniaResource Include="Assets\**" />
+    <AvaloniaXaml Remove="assets\styles\AppStyles.axaml" />
 	<AvaloniaResource Include="Assets\LakkiReddy-Regular.ttf" />
+	<Folder Include="Models\" />
   </ItemGroup>
 
 
@@ -24,5 +26,12 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.6" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.6" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <AvaloniaResource Update="Assets\Styles\AppStyles.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
   </ItemGroup>
 </Project>
