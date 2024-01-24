@@ -14,7 +14,6 @@
     <AvaloniaResource Include="Assets\**" />
     <AvaloniaXaml Remove="assets\styles\AppStyles.axaml" />
 	<AvaloniaResource Include="Assets\LakkiReddy-Regular.ttf" />
-	<Folder Include="Models\" />
   </ItemGroup>
 
 

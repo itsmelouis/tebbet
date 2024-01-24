@@ -101,15 +101,6 @@
 			<Setter Property="CornerRadius" Value="50" />
 			<Setter Property="Opacity" Value="0.75" />
 		</Style>
-		<Style Selector="^:selected /template/ Border#PART_SelectedPipe">
-			<Setter Property="IsVisible" Value="False" />
-		</Style>
-		<Style Selector="^:selected">
-			<Setter Property="Background" Value="#5F8C50" />
-			<Style Selector="^:pointerover /template/ContentPresenter">
-				<Setter Property="Background" Value="#5F8C50" />
-			</Style>
-		</Style>
 	</Style>
 
 	<Style Selector="Button.BetButton">
@@ -122,6 +113,13 @@
 		<Setter Property="Content" Value="Parier" />
 		<Style Selector="^:pointerover /template/ContentPresenter">
 			<Setter Property="Background" Value="White" />
+		</Style>
+	</Style>
+	<Style Selector="Button.active">
+		<Setter Property="Background" Value="#5F8C50" />
+		<Style Selector="^:pointerover /template/ContentPresenter">
+			<Setter Property="Background" Value="#5F8C50" />
+			<Setter Property="Opacity" Value="1" />
 		</Style>
 	</Style>
 </Styles>
