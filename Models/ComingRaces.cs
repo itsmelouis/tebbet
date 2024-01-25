@@ -15,4 +15,6 @@ namespace Tebbet.Models
 
         public required string Adress { get; set; }
     }
+
 }
+

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Tebbet.Models;
 
 namespace Tebbet.ViewModels
@@ -13,8 +9,8 @@ namespace Tebbet.ViewModels
 
         public ComingRacesViewModel()
         {
-            ComingRaces = new List<ComingRaces>
-            {
+            ComingRaces =
+            [
                 new()
                 {
                     Image = "valenciennes.jpg",
@@ -43,7 +39,7 @@ namespace Tebbet.ViewModels
                     Date = "Dimanche 03 Mars 2024 - 05:45",
                     Adress = "Central Park - New York"
                 }
-            };
+            ];
         }
     }
 }

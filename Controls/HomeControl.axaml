@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:Tebbet.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Tebbet.Controls.HomeControl"
+			 x:DataType="vm:MainWindowViewModel">
+
+	<UserControl.Styles>
+		<StyleInclude Source="/Assets/Styles/AppStyles.axaml" />
+	</UserControl.Styles>
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<StackPanel>
+		<!-- Block de pub 100€ offerts -->
+		<Grid Background="#5F8C50" RowDefinitions="40, Auto">
+			<TextBlock HorizontalAlignment="Center" Margin="0 5 0 0" Padding="0" Classes="LakkiWhite h1" Text="JUSQU'A 100€ OFFERTS !" />
+			<Button Classes="LakkiWhite RegisterButton" Grid.Row="1" HorizontalAlignment="Center">
+				<Button.Content>
+					<StackPanel>
+						<TextBlock>
+							<TextBlock Height="17" Text="Je m'inscris" />
+							<Image Margin="7 0 0 0" Width="15" Source="/Assets/RightArrow.png" />
+						</TextBlock>
+					</StackPanel>
+				</Button.Content>
+			</Button>
+		</Grid>
+
+		<Grid HorizontalAlignment="Center" RowDefinitions="auto, auto, auto, auto" >
+
+			<!-- Carte des 4 prochaines courses -->
+			<Border Background="Transparent" ClipToBounds="True" CornerRadius="10" Margin="0 20 0 0">
+				<Border.Effect>
+					<DropShadowEffect BlurRadius="5" OffsetY="2"/>
+				</Border.Effect>
+				<Grid ColumnDefinitions="250, 220" >
+					<Image Name="ImgComingRace" Source="{Binding ImageComingRace}" Stretch="Fill" Width="251" Height="150" />
+					<StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="5 5 0 0">
+						<Button Classes="TabComingRace" Name="BtnComingRace_0" Click="ButtonClick" />
+						<Button Classes="TabComingRace" Name="BtnComingRace_1" Click="ButtonClick" />
+						<Button Classes="TabComingRace" Name="BtnComingRace_2" Click="ButtonClick" />
+						<Button Classes="TabComingRace" Name="BtnComingRace_3" Click="ButtonClick" />
+					</StackPanel>
+					<Grid RowDefinitions="40, 20, 20, *" Grid.Column="1" Background="#374F3E" >
+						<TextBlock HorizontalAlignment="Center" FontSize="10" Margin="0 5 0 0" Classes="LakkiWhite" Text="{Binding HeaderComingRace}" />
+						<TextBlock Grid.Row="1" FontSize="9" Classes="LakkiGray" Margin="10 0 0 0" Text="{Binding DateComingRace}" />
+						<TextBlock Grid.Row="2" FontSize="12" Classes="LakkiWhite" Margin="10 0 0 0" Padding="0 0 10 0" Text="{Binding AdressComingRace}"/>
+						<Button Grid.Row="3" Classes="LakkiBlack BetButton" />
+					</Grid>
+				</Grid>
+			</Border>
+
+		</Grid>
+	</StackPanel>
+</UserControl>

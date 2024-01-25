@@ -1,27 +1,17 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using ImageExample.Helpers;
-using Microsoft.CodeAnalysis;
 using System;
-using System.Collections.Generic;
-using Tebbet.Models;
-using Tebbet.ViewModels;
+using Tebbet.Controls;
 
 namespace Tebbet.Views;
 
 public partial class MainWindow : Window
 {
-    private Button? lastButton;
-    private Bitmap? ImageCircuits;
-    private readonly ComingRacesViewModel comingRacesViewModel;
 
     public MainWindow()
     {
         InitializeComponent();
-        this.Opened += MainWindow_Initialized;
-        comingRacesViewModel = new ComingRacesViewModel();
+        ShowControl(typeof(HomeControl));
     }
 
 
@@ -29,38 +19,26 @@ public partial class MainWindow : Window
     {
         if (sender is Button button)
         {
-            if (button.Classes.Contains("TabComingRace"))
+            if (button.Classes.Contains("Login"))
             {
-                if (button.Name is not null)
-                {
-                    string[] splitName = button.Name.Split("_");
-                    int index = Int32.Parse(splitName[1]);
-                    // Permet de modifier la couleur du background, on utilise Color.Parse pour intégrer des couleurs spécifique.
-                    ShowIncomingRace(button, index);
-                }
+                ShowControl(typeof(LoginControl));
             }
         }
     }
 
-    private void MainWindow_Initialized(object sender, EventArgs e)
+    private void ShowControl(Type controlType)
     {
-        ShowIncomingRace(BtnComingRace_0, 0);
-    }
-
-    private void ShowIncomingRace(Button button, int index) 
-    {
-        var race = comingRacesViewModel.ComingRaces[index];
-
-        if (DataContext is MainWindowViewModel viewModel)
+        switch(controlType.Name)
         {
-            viewModel.setImageComingRace(race.Image);
-            viewModel.setHeaderComingRace(race.Title);
-            viewModel.setDateComingRace(race.Date);
-            viewModel.setAdressComingRace(race.Adress);
+            case nameof(HomeControl):
+                contentControl.Content = new HomeControl();
+                break;
+            case nameof(LoginControl):
+                contentControl.Content = new LoginControl();
+                break;
+            default:
+                contentControl.Content = new HomeControl();
+                break;
         }
-
-        lastButton?.Classes.Remove("active");
-        button.Classes.Add("active");
-        lastButton = button;
     }
 }
