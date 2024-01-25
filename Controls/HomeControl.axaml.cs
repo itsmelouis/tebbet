@@ -3,6 +3,7 @@ using Avalonia.Interactivity;
 using System;
 using System.Linq;
 using Tebbet.Database;
+using Tebbet.Services;
 using Tebbet.ViewModels;
 
 
@@ -15,7 +16,7 @@ namespace Tebbet.Controls
         public HomeControl()
         {
             InitializeComponent();
-            this.Loaded += MainWindow_Initialized;
+            Loaded += MainWindow_Initialized;
             comingRacesViewModel = new ComingRacesViewModel();
         }
 
@@ -23,6 +24,7 @@ namespace Tebbet.Controls
         {
             if (sender is Button button)
             {
+                var mail = UserService.Email;
                 if (button.Classes.Contains("TabComingRace"))
                 {
                     if (button.Name is not null)

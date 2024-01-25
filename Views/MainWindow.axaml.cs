@@ -23,22 +23,20 @@ public partial class MainWindow : Window
             {
                 ShowControl(typeof(LoginControl));
             }
+            if (button.Classes.Contains("Home"))
+            {
+                ShowControl(typeof(HomeControl));
+            }
         }
     }
 
     private void ShowControl(Type controlType)
     {
-        switch(controlType.Name)
+        contentControl.Content = controlType.Name switch
         {
-            case nameof(HomeControl):
-                contentControl.Content = new HomeControl();
-                break;
-            case nameof(LoginControl):
-                contentControl.Content = new LoginControl();
-                break;
-            default:
-                contentControl.Content = new HomeControl();
-                break;
-        }
+            nameof(HomeControl) => new HomeControl(),
+            nameof(LoginControl) => new LoginControl(),
+            _ => new HomeControl(),
+        };
     }
 }

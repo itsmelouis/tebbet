@@ -18,9 +18,9 @@ namespace Tebbet.Models
         public required string Postalcode { get; set; }
         public required string City { get; set; }
         public required string Password { get; set; }
-        public required int? Credits { get; set; }
-        public required string? Phone { get; set; }
-        public required string? Role { get; set;}
+        public int? Credits { get; set; }
+        public string? Phone { get; set; }
+        public string? Role { get; set;}
     }
 }
 

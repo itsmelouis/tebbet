@@ -7,7 +7,7 @@ namespace Tebbet.Services
 {
     public class AuthenticationServices
     {
-        public List<Users> Authenticate(string mail, string password)
+        public static List<Users> Authenticate(string mail, string password)
         {
             using (var context = new DatabaseConnection())
             {
@@ -22,11 +22,11 @@ namespace Tebbet.Services
             }
         }
 
-        public bool IsAuthenticated(List<Users> user)
+        static bool IsAuthenticated(List<Users> user)
         {
-
             if (user.Count == 1)
             {
+                UserService.SetUserInfo(user);
                 return true;
             }
             else
