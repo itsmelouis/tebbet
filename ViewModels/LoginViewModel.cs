@@ -10,11 +10,12 @@ using Tebbet.Services;
 
 namespace Tebbet.ViewModels
 {
-    public class LoginViewModel : ViewModelBase, INotifyPropertyChanged
-    {
+    public class LoginViewModel : ViewModelBase, INotifyPropertyChanged 
+    { 
         public void Login(string mail, string password)
         {
             AuthenticationServices.Authenticate(mail, password);
         }
+
     }
 }

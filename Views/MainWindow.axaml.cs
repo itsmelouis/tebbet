@@ -2,6 +2,8 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System;
 using Tebbet.Controls;
+using Tebbet.Services;
+using Tebbet.ViewModels;
 
 namespace Tebbet.Views;
 
@@ -11,32 +13,34 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        ShowControl(typeof(HomeControl));
+        Opened += WindowOpened;
     }
 
-
-    private void ButtonClick(object sender, RoutedEventArgs args)
+    private void WindowOpened(object sender, EventArgs e)
     {
-        if (sender is Button button)
+        if (DataContext is MainWindowViewModel viewModel)
         {
-            if (button.Classes.Contains("Login"))
-            {
-                ShowControl(typeof(LoginControl));
-            }
-            if (button.Classes.Contains("Home"))
-            {
-                ShowControl(typeof(HomeControl));
-            }
+            viewModel.ShowControl(typeof(HomeControl));
         }
     }
 
-    private void ShowControl(Type controlType)
+    private void ButtonClick(object sender, RoutedEventArgs args)
     {
-        contentControl.Content = controlType.Name switch
+        if (sender is Button button && DataContext is MainWindowViewModel viewModel)
         {
-            nameof(HomeControl) => new HomeControl(),
-            nameof(LoginControl) => new LoginControl(),
-            _ => new HomeControl(),
-        };
+            // route
+            if (button.Classes.Contains("Login"))
+            {
+                viewModel.ShowControl(typeof(LoginControl));
+            }
+            if (button.Classes.Contains("Home"))
+            {
+                viewModel.ShowControl(typeof(HomeControl));
+            }
+            if (button.Classes.Contains("Register"))
+            {
+                viewModel.ShowControl(typeof(RegisterControl));
+            }
+        }
     }
 }

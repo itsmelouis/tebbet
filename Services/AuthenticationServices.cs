@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Tebbet.Database;
 using Tebbet.Models;
@@ -16,22 +18,18 @@ namespace Tebbet.Services
                     .Where(p => p.Password.Equals(password))
                     .ToList();
 
-                IsAuthenticated(User);
+                ProcessAuthentication(User);
 
                 return User;
             }
         }
 
-        static bool IsAuthenticated(List<Users> user)
+        private static void ProcessAuthentication(List<Users> user)
         {
             if (user.Count == 1)
             {
-                UserService.SetUserInfo(user);
-                return true;
-            }
-            else
-            {
-                return false;
+                var user_service = UserService.GetInstance();
+                user_service.SetUserInfo(user);
             }
         }
     }

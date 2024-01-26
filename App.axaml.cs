@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using System.Globalization;
 using Tebbet.ViewModels;
 using Tebbet.Views;
 

@@ -16,7 +16,7 @@ namespace Tebbet.Controls
         public HomeControl()
         {
             InitializeComponent();
-            Loaded += MainWindow_Initialized;
+            Loaded += HomeLoaded;
             comingRacesViewModel = new ComingRacesViewModel();
         }
 
@@ -24,7 +24,6 @@ namespace Tebbet.Controls
         {
             if (sender is Button button)
             {
-                var mail = UserService.Email;
                 if (button.Classes.Contains("TabComingRace"))
                 {
                     if (button.Name is not null)
@@ -38,7 +37,7 @@ namespace Tebbet.Controls
             }
         }
 
-        private void MainWindow_Initialized(object sender, EventArgs e)
+        private void HomeLoaded(object sender, EventArgs e)
         {
             ShowIncomingRace(BtnComingRace_0, 0);
         }
