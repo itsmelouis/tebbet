@@ -30,7 +30,6 @@ namespace Tebbet.Controls
                     {
                         string[] splitName = button.Name.Split("_");
                         int index = Int32.Parse(splitName[1]);
-                        // Permet de modifier la couleur du background, on utilise Color.Parse pour intégrer des couleurs spécifique.
                         ShowIncomingRace(button, index);
                     }
                 }

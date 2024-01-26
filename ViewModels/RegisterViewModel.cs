@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using DynamicData.Aggregation;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -8,39 +9,50 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Tebbet.ViewModels
+namespace Tebbet.ViewModels;
+public class RegisterViewModel : ViewModelBase, INotifyPropertyChanged
 {
-    public class RegisterViewModel : ViewModelBase, INotifyPropertyChanged
+    private string _Error;
+    public string? Error
     {
-        private string _Error;
-        public string Error
+        get => _Error;
+        set 
         {
-            get => _Error;
-            set 
+            if (_Error != value)
             {
-                if (_Error != value)
-                {
-                    _Error = value;
-                    this.RaisePropertyChanged(nameof(Error));
-                }
+                _Error = value;
+                this.RaisePropertyChanged(nameof(Error));
             }
         }
-        public RegisterViewModel()
-        {
-            Error = "test";
-        }
-        public void IsBirthdateValid(string value)
-        {
-            int date = DateTime.Now.Year - 18;
-            string year = date.ToString();
-            char year_decimal = year[2];
-            char year_unit = year[3];
-            string regex = $@"^(0[1-9]|1[0-9]|2[0-9]|3[0-1])/(0[1-9]|1[0-2])/(19[0-9][0-9]|20[0-{year_decimal}][0-{year_unit}])$";
+    }
+    public void IsBirthdateValid(string value)
+    {
+        int date = DateTime.Now.Year - 18;
+        string year = date.ToString();
+        char year_decimal = year[2];
+        char year_unit = year[3];
+        string regex = $@"^(0[1-9]|1[0-9]|2[0-9]|3[0-1])/(0[1-9]|1[0-2])/(19[0-9][0-9]|20[0-{year_decimal}][0-{year_unit}])$";
 
-            if (!Regex.IsMatch(value, regex))
-            {
-                Error = "Format de date non valide. Format: jj/mm/aaaa";
-            }
+        if (!Regex.IsMatch(value, regex))
+        {
+            Error = "Format de date non valide. Format: jj/mm/aaaa";
+        }
+        else
+        {
+            Error = null;
+        }
+    }
+
+    public void IsMailValid(string value)
+    {
+        string regex = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+        if (!Regex.IsMatch(value, regex))
+        {
+            Error = "Format d'email non valide.";
+        }
+        else
+        {
+            Error = null;
         }
     }
 }

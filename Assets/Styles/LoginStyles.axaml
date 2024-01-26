@@ -14,8 +14,7 @@
 		<Setter Property="FontFamily" Value="{StaticResource LakkiReddy}" />
 		<Setter Property="Padding" Value="15 5 15 0" />
 		<Setter Property="CornerRadius" Value="50" />
-		<Style Selector="^.connection" >
-			<Setter Property="Content" Value="Connexion" />
+		<Style Selector="^.green_btn" >
 			<Setter Property="Background" Value="#5F8C50" />
 			<Setter Property="Foreground" Value="White" />
 			<Style Selector="^:pointerover /template/ContentPresenter">
@@ -24,8 +23,7 @@
 				<Setter Property="Opacity" Value="0.75" />
 			</Style>
 		</Style>
-		<Style Selector="^.register" >
-			<Setter Property="Content" Value="Inscription" />
+		<Style Selector="^.grey_btn" >
 			<Setter Property="Background" Value="#D9D9D9" />
 			<Setter Property="Foreground" Value="Black" />
 			<Setter Property="Margin" Value="10 0" />
