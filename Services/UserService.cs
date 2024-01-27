@@ -30,7 +30,7 @@ namespace Tebbet.Services
         public string? Postalcode { get; set; }
         public string? City { get; set; }
         public string? Password { get; set; }
-        public int? Credits { get; set; }
+        public double? Credits { get; set; }
         public string? Phone { get; set; }
         public string? Role { get; set; }
         public event EventHandler AuthenticationSucceeded;

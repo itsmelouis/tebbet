@@ -13,12 +13,14 @@ namespace Tebbet.Models
         public required string Email {  get; set; } 
         public required string Lastname { get; set; }
         public required string Firstname { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public required DateTime Birthdate { get; set; }
         public required string Address { get; set; }
         public required string Postalcode { get; set; }
         public required string City { get; set; }
         public required string Password { get; set; }
-        public int? Credits { get; set; }
+        public double? Credits { get; set; }
         public string? Phone { get; set; }
         public string? Role { get; set;}
     }

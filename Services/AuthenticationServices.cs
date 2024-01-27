@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BCrypt.Net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,18 +10,18 @@ namespace Tebbet.Services
 {
     public class AuthenticationServices
     {
-        public static List<Users> Authenticate(string mail, string password)
+        public static void Authenticate(string mail, string password)
         {
             using (var context = new DatabaseConnection())
             {
                 var User = context.Users
                     .Where(p => p.Email.Equals(mail))
-                    .Where(p => p.Password.Equals(password))
                     .ToList();
 
-                ProcessAuthentication(User);
-
-                return User;
+                if (BCrypt.Net.BCrypt.Verify(password, User[0].Password))
+                {
+                    ProcessAuthentication(User);
+                }
             }
         }
 

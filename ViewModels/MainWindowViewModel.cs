@@ -18,7 +18,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     private Bitmap? _ImageComingRace;
     private bool _IsAuthentified;
     private object _ContentControl;
-
+    private double? _Credits;
 
     public MainWindowViewModel()
     {
@@ -104,6 +104,19 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         }
     }
 
+    public double? Credits
+    {
+        get => _Credits;
+        set
+        {
+            if (_Credits != value)
+            {
+                _Credits = value;
+                this.RaisePropertyChanged(nameof(Credits));
+            }
+        }
+    }
+
     public void setImageComingRace(string value)
     {
         ImageComingRace = ImageHelper.LoadFromResource(new Uri("avares://Tebbet/Assets/Images/Circuits/" + value));
@@ -128,6 +141,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
         IsAuthentified = true;
         ShowControl(typeof(HomeControl));
+        Credits = UserService.Credits;
     }
 
     // route

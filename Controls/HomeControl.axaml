@@ -17,7 +17,7 @@
 
 	<StackPanel>
 		<!-- Block de pub 100€ offerts -->
-		<Grid Background="#5F8C50" RowDefinitions="40, Auto">
+		<Grid IsVisible="{Binding !IsAuthentified}" Background="#5F8C50" RowDefinitions="40, Auto">
 			<TextBlock HorizontalAlignment="Center" Margin="0 5 0 0" Padding="0" Classes="LakkiWhite h1" Text="JUSQU'A 100€ OFFERTS !" />
 			<Button Classes="LakkiWhite RegisterButton" Grid.Row="1" HorizontalAlignment="Center">
 				<Button.Content>

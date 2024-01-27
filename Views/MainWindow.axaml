@@ -48,7 +48,7 @@
 					<Button.Content>
 						<StackPanel Orientation="Horizontal">
 							<Image Source="avares://Tebbet/Assets/dollar.png" Width="20" VerticalAlignment="Top" />
-							<TextBlock Text="0.00" Margin="5 2" VerticalAlignment="Center" />
+							<TextBlock Text="{Binding Credits}" Margin="5 2" VerticalAlignment="Center" />
 						</StackPanel>
 					</Button.Content>
 				</Button>
@@ -73,7 +73,6 @@
 		</Grid>
 
 		<ContentControl Content="{Binding ContentControl}" />
-		<!-- <controls:HomeControl /> -->
 		
 	</StackPanel>
 </Window>
