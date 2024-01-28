@@ -17,6 +17,8 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     private string? _AdressComingRace;
     private Bitmap? _ImageComingRace;
     private bool _IsAuthentified;
+    private bool _IsAuthentifiedAsUser;
+    private bool _IsAuthentifiedAsAdmin;
     private object _ContentControl;
     private double? _Credits;
 
@@ -104,6 +106,32 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         }
     }
 
+    public bool IsAuthentifiedAsUser
+    {
+        get => _IsAuthentifiedAsUser;
+        set
+        {
+            if (_IsAuthentifiedAsUser != value)
+            {
+                _IsAuthentifiedAsUser = value;
+                this.RaisePropertyChanged(nameof(IsAuthentifiedAsUser));
+            }
+        }
+    }
+
+    public bool IsAuthentifiedAsAdmin
+    {
+        get => _IsAuthentifiedAsAdmin;
+        set
+        {
+            if (_IsAuthentifiedAsAdmin != value)
+            {
+                _IsAuthentifiedAsAdmin = value;
+                this.RaisePropertyChanged(nameof(IsAuthentifiedAsAdmin));
+            }
+        }
+    }
+
     public double? Credits
     {
         get => _Credits;
@@ -140,8 +168,18 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     private void whenAuthentified(object sender, EventArgs e)
     {
         IsAuthentified = true;
-        ShowControl(typeof(HomeControl));
-        Credits = UserService.Credits;
+
+        if (UserService.Role == "user")
+        {
+            ShowControl(typeof(HomeControl));
+            IsAuthentifiedAsUser = true;
+            Credits = UserService.Credits;
+        }
+        if (UserService.Role == "admin")
+        {
+            ShowControl(typeof(AdminControl));
+            IsAuthentifiedAsAdmin = true;
+        }
     }
 
     // route
@@ -152,6 +190,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
             nameof(HomeControl) => new HomeControl(),
             nameof(LoginControl) => new LoginControl(),
             nameof(RegisterControl) => new RegisterControl(),
+            nameof(AdminControl) => new AdminControl(),
             _ => new HomeControl(),
         };
     }

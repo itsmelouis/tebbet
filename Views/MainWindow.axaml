@@ -14,7 +14,7 @@
 	<Window.Background>
 		<ImageBrush Stretch="Fill" Source="/Assets/mainbackground.png" />
 	</Window.Background>
-
+	
 	<Window.Styles>
 		<StyleInclude Source="/Assets/Styles/AppStyles.axaml" />
 	</Window.Styles>
@@ -43,7 +43,7 @@
 				<Button Classes="NavButton NavLink LakkiWhite Login" Content="Connexion" Click="ButtonClick" />
 				<Button Classes="NavButton RegisterButtonNav LakkiWhite Register" Grid.Column="1" Content="Inscription" Click="ButtonClick" />
 			</Grid>
-			<Grid IsVisible="{Binding IsAuthentified}" HorizontalAlignment="Right" ColumnDefinitions="auto, auto, auto" RowDefinitions="auto" Grid.Column="2">
+			<Grid IsVisible="{Binding IsAuthentifiedAsUser}" HorizontalAlignment="Right" ColumnDefinitions="auto, auto, auto" RowDefinitions="auto" Grid.Column="2">
 				<Button Classes="NavButton NavLink LakkiWhite">
 					<Button.Content>
 						<StackPanel Orientation="Horizontal">
