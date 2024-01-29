@@ -191,7 +191,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
             nameof(LoginControl) => new LoginControl(),
             nameof(RegisterControl) => new RegisterControl(),
             nameof(AdminControl) => new AdminControl(),
-            _ => new HomeControl(),
+            _ => new HomeControl()
         };
     }
 }
