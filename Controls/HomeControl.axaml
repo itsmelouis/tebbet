@@ -57,14 +57,5 @@
 			</Border>
 
 		</Grid>
-		
-		<Border Background="White" Width="475" Height="150" Margin="0, 16, 0, 16" CornerRadius="12" Padding="12">
-			<StackPanel HorizontalAlignment="Left" >
-				<TextBlock Margin="0, 0, 0, 8">08/10/2023</TextBlock>
-				<Border BorderBrush="DarkGray" CornerRadius="100" Opacity="0.2"
-				        BorderThickness="0.5" Width="450" HorizontalAlignment="Center"> 
-				</Border>
-			</StackPanel>
-		</Border>
 	</StackPanel>
 </UserControl>
