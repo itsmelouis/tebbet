@@ -12,7 +12,7 @@
         Title="Tebbet">
 
 	<Window.Background>
-		<ImageBrush Opacity="0.5" Stretch="Fill" Source="/Assets/mainbackground.png" />
+		<ImageBrush Stretch="Fill" Source="/Assets/mainbackground.png" />
 	</Window.Background>
 	
 	<Window.Styles>
