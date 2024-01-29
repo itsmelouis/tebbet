@@ -12,8 +12,8 @@ using Tebbet.Database;
 namespace Tebbet.Migrations
 {
     [DbContext(typeof(DatabaseConnection))]
-    [Migration("20240128124437_First")]
-    partial class First
+    [Migration("20240129151514_supabase")]
+    partial class supabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -54,7 +54,7 @@ namespace Tebbet.ViewModels
         {
             using(var context = new DatabaseConnection())
             {
-                var circuit = context.Circuits.FirstOrDefault(c => c.id == id);
+                var circuit = context.Circuits.Single(c => c.id == id);
                 context.Remove(circuit);
                 context.SaveChanges();
                 this.GetCircuits();
