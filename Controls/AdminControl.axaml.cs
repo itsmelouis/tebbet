@@ -10,7 +10,6 @@ namespace Tebbet.Controls
     public partial class AdminControl : UserControl
     {
         private AdminViewModel viewModel;
-        private string? filePath { get; set; }
         public AdminControl()
         {
             InitializeComponent();
@@ -29,10 +28,10 @@ namespace Tebbet.Controls
                 switch (button.Name)
                 {
                     case "AddCircuit":
-                        viewModel.ModalAddCircuit = true;
+                        viewModel.AddCircuit();
                         break;
                     case "CancelCircuit":
-                        viewModel.ModalAddCircuit = false;
+                        viewModel.ModalCircuit = false;
                         break;
                     case "ImageCircuit":
                         OpenFile();
@@ -50,9 +49,9 @@ namespace Tebbet.Controls
             string Place = PlaceCircuit.Text;
             string City = CityCircuit.Text;
             string Country = CountryCircuit.Text;
-            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Place) && !string.IsNullOrEmpty(City) && !string.IsNullOrEmpty(Country) && !string.IsNullOrEmpty(filePath))
+            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Place) && !string.IsNullOrEmpty(City) && !string.IsNullOrEmpty(Country))
             {
-                viewModel.AddCircuit(Name, filePath, Place, City, Country);
+                viewModel.SaveCircuit(Name, Place, City, Country);
             }
             else
             {
@@ -72,7 +71,7 @@ namespace Tebbet.Controls
 
             if (files.Count >= 1)
             {
-                filePath = files[0].Path.AbsolutePath;
+                viewModel.FilePath = files[0].Path.AbsolutePath;
             }
 
         }
