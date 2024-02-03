@@ -7,13 +7,13 @@ using Tebbet.ViewModels;
 
 namespace Tebbet.Controls
 {
-    public partial class AdminControl : UserControl
+    public partial class CircuitControl : UserControl
     {
-        private AdminViewModel viewModel;
-        public AdminControl()
+        private AdminCircuitViewModel viewModel;
+        public CircuitControl()
         {
             InitializeComponent();
-            viewModel = new AdminViewModel();
+            viewModel = new AdminCircuitViewModel();
             DataContext = viewModel;
             AddCircuit.Click += Handler;
             SaveCircuit.Click += Handler;

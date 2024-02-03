@@ -12,20 +12,29 @@ namespace Tebbet.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
 {
+    // Singleton
+    private static MainWindowViewModel _instance;
+
+    private MainWindowViewModel()
+    {
+        NavbarControl = new NavbarControl();
+    }
+
+    public static MainWindowViewModel GetInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new MainWindowViewModel();
+        }
+
+        return _instance;
+    }
+
+    private object _ContentControl;
     private string? _HeaderComingRace;
     private string? _DateComingRace;
     private string? _AdressComingRace;
     private Bitmap? _ImageComingRace;
-    private bool _IsAuthentified;
-    private bool _IsAuthentifiedAsUser;
-    private bool _IsAuthentifiedAsAdmin;
-    private object _ContentControl;
-    private double? _Credits;
-
-    public MainWindowViewModel()
-    {
-        UserService.AuthenticationSucceeded += whenAuthentified;
-    }
 
     public Bitmap? ImageComingRace
     {
@@ -36,19 +45,6 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
             {
                 _ImageComingRace = value;
                 this.RaisePropertyChanged(nameof(ImageComingRace));
-            }
-        }
-    }
-
-    public object ContentControl
-    {
-        get => _ContentControl;
-        set
-        {
-            if (_ContentControl != value)
-            {
-                _ContentControl = value;
-                this.RaisePropertyChanged(nameof(ContentControl));
             }
         }
     }
@@ -93,58 +89,6 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         }
     }
 
-    public bool IsAuthentified
-    {
-        get => _IsAuthentified;
-        set
-        {
-            if (_IsAuthentified != value)
-            {
-                _IsAuthentified = value;
-                this.RaisePropertyChanged(nameof(IsAuthentified));
-            }
-        }
-    }
-
-    public bool IsAuthentifiedAsUser
-    {
-        get => _IsAuthentifiedAsUser;
-        set
-        {
-            if (_IsAuthentifiedAsUser != value)
-            {
-                _IsAuthentifiedAsUser = value;
-                this.RaisePropertyChanged(nameof(IsAuthentifiedAsUser));
-            }
-        }
-    }
-
-    public bool IsAuthentifiedAsAdmin
-    {
-        get => _IsAuthentifiedAsAdmin;
-        set
-        {
-            if (_IsAuthentifiedAsAdmin != value)
-            {
-                _IsAuthentifiedAsAdmin = value;
-                this.RaisePropertyChanged(nameof(IsAuthentifiedAsAdmin));
-            }
-        }
-    }
-
-    public double? Credits
-    {
-        get => _Credits;
-        set
-        {
-            if (_Credits != value)
-            {
-                _Credits = value;
-                this.RaisePropertyChanged(nameof(Credits));
-            }
-        }
-    }
-
     public void setImageComingRace(string value)
     {
         ImageComingRace = ImageHelper.LoadFromResource(new Uri("avares://Tebbet/Assets/Images/Circuits/" + value));
@@ -165,33 +109,29 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         AdressComingRace = value;
     }
 
-    private void whenAuthentified(object sender, EventArgs e)
+    public object ContentControl
     {
-        IsAuthentified = true;
-
-        if (UserService.Role == "user")
+        get => _ContentControl;
+        set
         {
-            ShowControl(typeof(HomeControl));
-            IsAuthentifiedAsUser = true;
-            Credits = UserService.Credits;
-        }
-        if (UserService.Role == "admin")
-        {
-            ShowControl(typeof(AdminControl));
-            IsAuthentifiedAsAdmin = true;
+            if (_ContentControl != value)
+            {
+                _ContentControl = value;
+                this.RaisePropertyChanged(nameof(ContentControl));
+            }
         }
     }
 
     // route
-    public void ShowControl(Type controlType)
+    public override void ShowControl(Type controlType)
     {
         ContentControl = controlType.Name switch
         {
             nameof(HomeControl) => new HomeControl(),
             nameof(LoginControl) => new LoginControl(),
             nameof(RegisterControl) => new RegisterControl(),
-            nameof(AdminControl) => new AdminControl(),
             _ => new HomeControl()
         };
     }
+
 }

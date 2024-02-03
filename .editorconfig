@@ -11,3 +11,12 @@ dotnet_diagnostic.CS8622.severity = none
 
 # CS8602: Déréférencement d'une éventuelle référence null.
 dotnet_diagnostic.CS8602.severity = none
+
+# IDE0055: Corriger la mise en forme
+dotnet_diagnostic.IDE0055.severity = none
+
+# IDE0059: Assignation inutile d'une valeur
+dotnet_diagnostic.IDE0059.severity = none
+
+# CS8600: Conversion de littéral ayant une valeur null ou d'une éventuelle valeur null en type non-nullable.
+dotnet_diagnostic.CS8600.severity = none

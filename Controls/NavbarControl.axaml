@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:vm="using:Tebbet.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		x:DataType="vm:NavbarViewModel"
+        x:Class="Tebbet.Controls.NavbarControl">
+  
+			<!-- Navbar -->
+		<Grid Background="#374F3E"  Margin="0"
+      ColumnDefinitions="150, auto, *"
+      RowDefinitions="Auto">
+			<Grid>
+				<Image Source="/Assets/logo.png" Width="75" HorizontalAlignment="Left" Margin="10 9 0 7"/>
+			</Grid>
+			
+			<Grid ColumnDefinitions="auto, auto, auto, auto" RowDefinitions="auto" Grid.Column="1">
+				<Button Classes="NavButton NavLink LakkiWhite Home" Content="Accueil" Click="ButtonClick"/>
+				<Button Classes="NavButton NavLink LakkiWhite" Grid.Column="1" Content="Courses" />
+				<Button Classes="NavButton NavLink LakkiWhite" Grid.Column="2" Content="Classement" />
+				<Button Classes="NavButton NavLink LakkiWhite" Grid.Column="3" Content="Fidélité" />
+			</Grid>
+			
+			<Grid IsVisible="{Binding !IsAuthentified}" HorizontalAlignment="Right" ColumnDefinitions="auto, auto" RowDefinitions="auto" Grid.Column="2">
+				<Button Classes="NavButton NavLink LakkiWhite Login" Content="Connexion" Click="ButtonClick" />
+				<Button Classes="NavButton RegisterButtonNav LakkiWhite Register" Grid.Column="1" Content="Inscription" Click="ButtonClick" />
+			</Grid>
+			<Grid IsVisible="{Binding IsAuthentifiedAsUser}" HorizontalAlignment="Right" ColumnDefinitions="auto, auto, auto" RowDefinitions="auto" Grid.Column="2">
+				<Button Classes="NavButton NavLink LakkiWhite">
+					<Button.Content>
+						<StackPanel Orientation="Horizontal">
+							<Image Source="avares://Tebbet/Assets/dollar.png" Width="20" VerticalAlignment="Top" />
+							<TextBlock Text="{Binding Credits}" Margin="5 2" VerticalAlignment="Center" />
+						</StackPanel>
+					</Button.Content>
+				</Button>
+				<Button Classes="NavButton NavLink LakkiWhite" Grid.Column="1">
+					<Button.Content>
+						<StackPanel Orientation="Horizontal">
+							<Image Source="avares://Tebbet/Assets/smallsnail.png" Width="20" VerticalAlignment="Top" />
+							<TextBlock Text="Historique" Margin="5 2" VerticalAlignment="Center" />
+						</StackPanel>
+					</Button.Content>
+				</Button>
+				<Button Classes="NavButton NavLink LakkiWhite" Grid.Column="2">
+					<Button.Content>
+						<StackPanel Orientation="Horizontal">
+							<Image Source="avares://Tebbet/Assets/user.png" Width="20" VerticalAlignment="Top" />
+							<TextBlock Text="Compte" Margin="5 2" VerticalAlignment="Center" />
+						</StackPanel>
+					</Button.Content>
+				</Button>
+			</Grid>
+			
+		</Grid>
+	
+</UserControl>

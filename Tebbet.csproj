@@ -55,4 +55,11 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Controls\CircuitControl.axaml.cs">
+      <DependentUpon>CircuitControl.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

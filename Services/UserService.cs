@@ -33,6 +33,9 @@ namespace Tebbet.Services
         public double? Credits { get; set; }
         public string? Phone { get; set; }
         public string? Role { get; set; }
+        public bool IsAuthentified { get; set; }
+        public bool IsAuthentifiedAsAdmin { get; set; }
+        public bool IsAuthentifiedAsUser { get; set; }
         public event EventHandler AuthenticationSucceeded;
 
 
@@ -51,7 +54,16 @@ namespace Tebbet.Services
                 Credits = user[0].Credits;
                 Phone = user[0].Phone;
                 Role = user[0].Role;
+                IsAuthentified = true;
 
+                if (Role == "admin")
+                {
+                    IsAuthentifiedAsAdmin = true;
+                }
+                else
+                {
+                    IsAuthentifiedAsUser = true;
+                }
 
                 OnAuthenticationSucceeded();
             }

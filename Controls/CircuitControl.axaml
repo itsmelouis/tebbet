@@ -3,10 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:Tebbet.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="2000"
-             x:Class="Tebbet.Controls.AdminControl"
-			 x:DataType="vm:AdminViewModel"
-			 Height="2000"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
+             x:Class="Tebbet.Controls.CircuitControl"
+			 x:DataType="vm:AdminCircuitViewModel"
 			 Background="WhiteSmoke"
 			 xmlns:converter="clr-namespace:Tebbet.Converter">
 
@@ -15,15 +14,9 @@
 	</UserControl.Resources>
 
 	<Design.DataContext>
-		<vm:AdminViewModel />
+		<vm:AdminCircuitViewModel />
 	</Design.DataContext>
-	
-	<TabControl TabStripPlacement="Left" HorizontalContentAlignment="Center" Margin="5">
-		<TabItem Header="Dashboard" FontSize="20">
-			<TextBlock Margin="5"></TextBlock>
-		</TabItem>
 		
-		<TabItem Header="Circuits" FontSize="20">
 			<!-- Table de circuits -->
 			<StackPanel>
 				
@@ -33,7 +26,6 @@
 					<DataGrid Name="TableCircuits" Grid.Row="2" Height="500" Margin="10" ItemsSource="{Binding Circuits}"
 			  CanUserSortColumns="True"
 			  GridLinesVisibility="All"
-							  
 			  BorderThickness="2" BorderBrush="Gray">
 						<DataGrid.Columns>
 							<DataGridTextColumn Header="Nom"  Binding="{Binding Name}"/>
@@ -55,12 +47,12 @@
 								<DataGridTemplateColumn.CellTemplate>
 									<DataTemplate>
 										<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-											<Button Background="Transparent" Click="" Margin="5" CommandParameter="{Binding id}" Command="{Binding #TableCircuits.((vm:AdminViewModel)DataContext).UpdateCommand}">
+											<Button Background="Transparent" Click="" Margin="5" CommandParameter="{Binding id}" Command="{Binding #TableCircuits.((vm:AdminCircuitViewModel)DataContext).UpdateCommand}">
 												<Button.Content>
 													<Image Source="avares://Tebbet/Assets/pen.png" Width="14" />
 												</Button.Content>
 											</Button>
-											<Button Background="Transparent" Margin="5" CommandParameter="{Binding id}" Command="{Binding #TableCircuits.((vm:AdminViewModel)DataContext).DeleteCommand}">
+											<Button Background="Transparent" Margin="5" CommandParameter="{Binding id}" Command="{Binding #TableCircuits.((vm:AdminCircuitViewModel)DataContext).DeleteCommand}">
 												<Button.Content>
 													<Image Source="avares://Tebbet/Assets/delete.png" Width="14" />
 												</Button.Content>
@@ -104,10 +96,5 @@
 					</Border>
 				</Grid>
 			</StackPanel>
-		</TabItem>
-		
-		<TabItem Header="Races" FontSize="20">
-			<TextBlock Margin="5">CRUD RACES</TextBlock>
-		</TabItem>
-	</TabControl>
+	
 </UserControl>

@@ -9,10 +9,10 @@ namespace Tebbet.Views;
 
 public partial class MainWindow : Window
 {
-
     public MainWindow()
     {
         InitializeComponent();
+        DataContext = MainWindowViewModel.GetInstance();
         Opened += WindowOpened;
     }
 
@@ -21,26 +21,6 @@ public partial class MainWindow : Window
         if (DataContext is MainWindowViewModel viewModel)
         {
             viewModel.ShowControl(typeof(HomeControl));
-        }
-    }
-
-    private void ButtonClick(object sender, RoutedEventArgs args)
-    {
-        if (sender is Button button && DataContext is MainWindowViewModel viewModel)
-        {
-            // route
-            if (button.Classes.Contains("Login"))
-            {
-                viewModel.ShowControl(typeof(LoginControl));
-            }
-            if (button.Classes.Contains("Home"))
-            {
-                viewModel.ShowControl(typeof(HomeControl));
-            }
-            if (button.Classes.Contains("Register"))
-            {
-                viewModel.ShowControl(typeof(RegisterControl));
-            }
         }
     }
 }
