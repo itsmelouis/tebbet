@@ -12,8 +12,8 @@ using Tebbet.Database;
 namespace Tebbet.Migrations
 {
     [DbContext(typeof(DatabaseConnection))]
-    [Migration("20240129151514_supabase")]
-    partial class supabase
+    [Migration("20240204134814_2")]
+    partial class _2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,12 @@ namespace Tebbet.Migrations
             modelBuilder.Entity("Tebbet.Models.Races", b =>
                 {
                     b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int>("CircuitId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("End")
@@ -78,6 +84,8 @@ namespace Tebbet.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("id");
+
+                    b.HasIndex("CircuitId");
 
                     b.ToTable("Races");
                 });
@@ -132,7 +140,7 @@ namespace Tebbet.Migrations
                 {
                     b.HasOne("Tebbet.Models.Circuits", "Circuits")
                         .WithMany("Races")
-                        .HasForeignKey("id")
+                        .HasForeignKey("CircuitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

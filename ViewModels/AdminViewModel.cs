@@ -58,6 +58,7 @@ namespace Tebbet.ViewModels
             ContentControl = controlType.Name switch
             {
                 nameof(CircuitControl) => new CircuitControl(),
+                nameof(RacesControl) => new RacesControl(),
                 _ => new CircuitControl()
             };
         }

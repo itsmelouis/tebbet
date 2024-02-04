@@ -1,0 +1,94 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:Tebbet.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="Tebbet.Controls.RacesControl"
+			 x:DataType="vm:AdminRacesViewModel"
+			 Background="WhiteSmoke">
+
+	<Design.DataContext>
+		<vm:AdminRacesViewModel />
+	</Design.DataContext>
+
+	<!-- Table de races -->
+	<StackPanel>
+
+		<Grid RowDefinitions="auto, auto, auto" IsVisible="{Binding !ModalRace}">
+			<TextBlock HorizontalAlignment="Center" Margin="0 10">CRUD RACES</TextBlock>
+			<Button Content="Ajouter" Name="AddRace" Grid.Row="1" Margin="10 0 0 0" />
+			<DataGrid Name="TableRaces" Grid.Row="2" Height="500" Margin="10" ItemsSource="{Binding Races}"
+	  CanUserSortColumns="True"
+	  GridLinesVisibility="All"
+	  BorderThickness="2" BorderBrush="Gray">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Titre"  Binding="{Binding Title}"/>
+					<DataGridTextColumn Header="Début" Binding="{Binding Start}" />
+					<DataGridTextColumn Header="Fin" Binding="{Binding End}" />
+					<DataGridTextColumn Header="ID Circuit" Binding="{Binding CircuitId}" />
+
+					<!-- Colonne d'actions -->
+					<DataGridTemplateColumn Header="Actions" Width="Auto">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+									<Button Background="Transparent" Click="" Margin="5" CommandParameter="{Binding id}" Command="{Binding #TableRaces.((vm:AdminRacesViewModel)DataContext).UpdateCommand}">
+										<Button.Content>
+											<Image Source="avares://Tebbet/Assets/pen.png" Width="14" />
+										</Button.Content>
+									</Button>
+									<Button Background="Transparent" Margin="5" CommandParameter="{Binding id}" Command="{Binding #TableRaces.((vm:AdminRacesViewModel)DataContext).DeleteCommand}">
+										<Button.Content>
+											<Image Source="avares://Tebbet/Assets/delete.png" Width="14" />
+										</Button.Content>
+									</Button>
+								</StackPanel>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+				</DataGrid.Columns>
+			</DataGrid>
+		</Grid>
+
+		<!-- Ajout d'une race -->
+		<Grid RowDefinitions="auto, auto, auto" IsVisible="{Binding ModalRace}">
+			<Grid.Styles>
+				<StyleInclude Source="avares://Tebbet/Assets/Styles/LoginStyles.axaml" />
+			</Grid.Styles>
+			<Border Margin="20" Padding="20 0 20 0" Width="340" Background="White" CornerRadius="10">
+				<StackPanel>
+					<StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+						<Image Source="avares://Tebbet/Assets/race.png" Width="15" Height="15"/>
+						<TextBlock Margin="10 10 0 0" FontSize="15" Text="{Binding ContentAddRace}" />
+					</StackPanel>
+
+					<!-- Formulaire d'ajout d'un race -->
+					<StackPanel Orientation="Vertical" Margin="10 0 5 0">
+						<TextBox Text="{Binding Title}" Name="TitleRace" Watermark="Titre de la course" Margin="0 0 0 10" />
+						<StackPanel Margin="20">
+							<Label Content="Choisir une date de départ:"/>
+							<DatePicker Name="DateStartRace" DayFormat="ddd dd" SelectedDate="{Binding Start}"/>
+							<Label Content="L'heure du départ:"/>
+							<TimePicker Name="TimeStartRace" ClockIdentifier="24HourClock"
+				MinuteIncrement="10" />
+						</StackPanel>
+						<StackPanel Margin="20">
+							<Label Content="Choisir une date d'arrivée:"/>
+							<DatePicker Name="DateEndRace" DayFormat="ddd dd" SelectedDate="{Binding End}" />
+							<Label Content="L'heure d'arrivée:"/>
+							<TimePicker Name="TimeEndRace" ClockIdentifier="24HourClock"
+				MinuteIncrement="10" />
+						</StackPanel>
+					</StackPanel>
+
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 10">
+						<Button Name="CancelRace" Classes="grey_btn" Content="Annuler" />
+						<Button Name="SaveRace" Classes="green_btn" Content="Enregistrer" />
+					</StackPanel>
+				</StackPanel>
+			</Border>
+		</Grid>
+	</StackPanel>
+
+</UserControl>

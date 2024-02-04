@@ -27,6 +27,7 @@ namespace Tebbet.Views
                             viewModel.ShowControl(typeof(CircuitControl));
                             break;
                         case "Races":
+                            viewModel.ShowControl(typeof(RacesControl));
                             break;
                     }
                 }

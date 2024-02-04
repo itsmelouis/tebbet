@@ -11,11 +11,13 @@ namespace Tebbet.Models
     public class Races
     {
         [Key]
-        public required int id {  get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int id {  get; set; }
         public required string Title { get; set; }
         public required DateTime Start { get; set; }
         public DateTime? End { get; set; }
-        [ForeignKey("id")]
+        [ForeignKey("CircuitId")]
         public Circuits Circuits { get; set; }
+        public int CircuitId { get; set; }
     }
 }

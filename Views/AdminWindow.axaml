@@ -3,7 +3,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:vm="using:Tebbet.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		Width="1000"
+		Height="700"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
 		x:DataType="vm:AdminViewModel"
 		Background="WhiteSmoke"
         x:Class="Tebbet.Views.AdminWindow"
@@ -16,11 +18,14 @@
 	<StackPanel>
 		
 		<ContentControl Content="{Binding NavbarControl}" />
-
-		<Button Name="Circuits">Circuits</Button>
-		<Button Name="Races">Races</Button>
+		<Grid ColumnDefinitions="auto, *">
+			<Grid RowDefinitions="auto, auto" Margin="10">
+				<Button Margin="0 5" Name="Circuits">Circuits</Button>
+				<Button Margin="0 5" Grid.Row="1" Name="Races">Races</Button>
+			</Grid>
 		
-		<ContentControl Content="{Binding ContentControl}" />
+			<ContentControl Content="{Binding ContentControl}" Grid.Column="1"/>
+		</Grid>
 
 	</StackPanel>
 

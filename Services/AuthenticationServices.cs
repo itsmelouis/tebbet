@@ -18,9 +18,12 @@ namespace Tebbet.Services
                     .Where(p => p.Email.Equals(mail))
                     .ToList();
 
-                if (BCrypt.Net.BCrypt.Verify(password, User[0].Password))
+                if (User.Count > 0)
                 {
-                    ProcessAuthentication(User);
+                    if (BCrypt.Net.BCrypt.Verify(password, User[0].Password))
+                    {
+                        ProcessAuthentication(User);
+                    }
                 }
             }
         }

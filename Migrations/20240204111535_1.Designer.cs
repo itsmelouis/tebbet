@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tebbet.Database;
@@ -11,9 +12,11 @@ using Tebbet.Database;
 namespace Tebbet.Migrations
 {
     [DbContext(typeof(DatabaseConnection))]
-    partial class DatabaseConnectionModelSnapshot : ModelSnapshot
+    [Migration("20240204111535_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,11 +68,6 @@ namespace Tebbet.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
-
-                    b.Property<int>("CircuitId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime?>("End")
                         .HasColumnType("timestamp with time zone");
 
@@ -81,8 +79,6 @@ namespace Tebbet.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("id");
-
-                    b.HasIndex("CircuitId");
 
                     b.ToTable("Races");
                 });
@@ -137,7 +133,7 @@ namespace Tebbet.Migrations
                 {
                     b.HasOne("Tebbet.Models.Circuits", "Circuits")
                         .WithMany("Races")
-                        .HasForeignKey("CircuitId")
+                        .HasForeignKey("id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

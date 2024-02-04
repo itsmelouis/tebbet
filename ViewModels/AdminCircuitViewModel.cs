@@ -161,12 +161,13 @@ namespace Tebbet.ViewModels
             }
         }
 
-        private void GetCircuits()
+        public List<Circuits> GetCircuits()
         {
             using (var context = new DatabaseConnection())
             {
                 var circuits = context.Circuits.ToList();
                 Circuits = new ObservableCollection<Circuits>(circuits);
+                return circuits;
             }
         }
 
