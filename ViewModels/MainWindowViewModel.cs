@@ -134,20 +134,23 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         {
             var races = context.Races.ToList();
             var racesNow = races.FindAll(x => x.Start > DateTime.Now).ToList();
-            var racesAfter4 = racesNow.GetRange(4, racesNow.Count - 4).ToList();
-            foreach (var race in racesAfter4)
+            if (racesNow.Count > 4)
             {
-                var circuit = context.Circuits.First(x => x.id == race.CircuitId);
+                var racesAfter4 = racesNow.GetRange(4, racesNow.Count - 4).ToList();
                 RacesCards = new ObservableCollection<RacesCards>();
-                RacesCards.Add(new RacesCards
+                foreach (var race in racesAfter4)
                 {
-                    City = circuit.City,
-                    Country = circuit.Country,
-                    id = race.id,
-                    Place = circuit.Place,
-                    Start = race.Start,
-                    Title = race.Title
-                });
+                    var circuit = context.Circuits.First(x => x.id == race.CircuitId);
+                    RacesCards.Add(new RacesCards
+                    {
+                        City = circuit.City,
+                        Country = circuit.Country,
+                        id = race.id,
+                        Place = circuit.Place,
+                        Start = race.Start,
+                        Title = race.Title
+                    });
+                }
             }
         }
     }

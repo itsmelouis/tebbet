@@ -37,7 +37,7 @@
 		<StackPanel HorizontalAlignment="Center" >
 
 			<!-- Carte des 4 premières prochaines courses -->
-			<Border Background="Transparent" ClipToBounds="True" CornerRadius="10" Margin="0 20 0 0">
+			<Border Background="Transparent" ClipToBounds="True" CornerRadius="10" Margin="0 20 0 10">
 				<Border.Effect>
 					<DropShadowEffect BlurRadius="5" OffsetY="2"/>
 				</Border.Effect>
@@ -62,7 +62,7 @@
 			<ItemsControl ItemsSource="{Binding RacesCards}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Border Background="White" Width="475" Height="170" Margin="0, 16, 0, 16" CornerRadius="12" Padding="12">
+						<Border Background="White" Width="475" Height="170" Margin="0, 10, 0, 10" CornerRadius="12" Padding="12">
 							<StackPanel HorizontalAlignment="Left" >
 								<Grid RowDefinitions="auto, auto, auto, auto">
 									<TextBlock Classes="LakkiBlack" Text="{Binding Start, StringFormat='{}{0:dd/MM/yyyy}'}"/>
@@ -72,7 +72,11 @@
 									<TextBlock Grid.Row="2" Classes="LakkiBlack" Text="{Binding Country}" />
 									<Grid Grid.Row="4" HorizontalAlignment="Center" RowDefinitions="auto, auto, auto">
 										<TextBlock HorizontalAlignment="Center" Classes="LakkiBlack" Text="{Binding Start, StringFormat='{}{0:dd/MM/yyyy - HH:mm}'}" />
-										<TextBlock Grid.Row="1" HorizontalAlignment="Center" Classes="LakkiBlack" Text="{Binding Place} - {Binding City}" />
+										<TextBlock Grid.Row="1" HorizontalAlignment="Center" Classes="LakkiBlack">
+											<Run Text="{Binding Place}" />
+											<Run Text=" - " />
+											<Run Text="{Binding City}" />
+										</TextBlock>
 										<Button HorizontalAlignment="Center" Grid.Row="2" Content="Parier sur le match" Classes="NavButton RegisterButtonNav LakkiWhite"/>
 									</Grid>
 								</Grid>
