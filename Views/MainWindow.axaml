@@ -19,10 +19,11 @@
 		<StyleInclude Source="/Assets/Styles/AppStyles.axaml" />
 	</Window.Styles>
 
+	<ScrollViewer VerticalScrollBarVisibility="Auto">
 	<StackPanel>
-
+		
 		<ContentControl Content="{Binding NavbarControl}" />
 		<ContentControl Content="{Binding ContentControl}" />
-		
 	</StackPanel>
+		</ScrollViewer>
 </Window>

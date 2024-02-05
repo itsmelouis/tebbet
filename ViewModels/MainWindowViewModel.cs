@@ -3,8 +3,13 @@ using Avalonia.Media.Imaging;
 using ImageExample.Helpers;
 using ReactiveUI;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using Tebbet.Controls;
+using Tebbet.Database;
+using Tebbet.Models;
 using Tebbet.Services;
 
 
@@ -34,9 +39,23 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     private string? _HeaderComingRace;
     private string? _DateComingRace;
     private string? _AdressComingRace;
-    private Bitmap? _ImageComingRace;
+    private byte[] _ImageComingRace;
+    private ObservableCollection<RacesCards> _RacesCards;
 
-    public Bitmap? ImageComingRace
+    public ObservableCollection<RacesCards> RacesCards
+    {
+        get => _RacesCards;
+        set
+        {
+            if (_RacesCards != value)
+            {
+                _RacesCards = value;
+                this.RaisePropertyChanged(nameof(RacesCards));
+            }
+        }
+    }
+
+    public byte[] ImageComingRace
     {
         get => _ImageComingRace;
         set
@@ -89,9 +108,9 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         }
     }
 
-    public void setImageComingRace(string value)
+    public void setImageComingRace(byte[] value)
     {
-        ImageComingRace = ImageHelper.LoadFromResource(new Uri("avares://Tebbet/Assets/Images/Circuits/" + value));
+        ImageComingRace = value;
     }
 
     public void setHeaderComingRace(string value)
@@ -107,6 +126,30 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     public void setAdressComingRace(string value)
     {
         AdressComingRace = value;
+    }
+
+    public void WindowLoaded()
+    {
+        using (var context = new DatabaseConnection())
+        {
+            var races = context.Races.ToList();
+            var racesNow = races.FindAll(x => x.Start > DateTime.Now).ToList();
+            var racesAfter4 = racesNow.GetRange(4, racesNow.Count - 4).ToList();
+            foreach (var race in racesAfter4)
+            {
+                var circuit = context.Circuits.First(x => x.id == race.CircuitId);
+                RacesCards = new ObservableCollection<RacesCards>();
+                RacesCards.Add(new RacesCards
+                {
+                    City = circuit.City,
+                    Country = circuit.Country,
+                    id = race.id,
+                    Place = circuit.Place,
+                    Start = race.Start,
+                    Title = race.Title
+                });
+            }
+        }
     }
 
     public object ContentControl

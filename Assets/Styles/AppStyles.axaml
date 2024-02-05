@@ -46,6 +46,15 @@
 		</Style>
 	</Style>
 
+	<Style Selector="TextBlock.LakkiBlack" >
+		<Setter Property="FontFamily" Value="{StaticResource LakkiReddy}" />
+		<Setter Property="Foreground" Value="Black" />
+
+		<Style Selector="^:pointerover /template/ ContentPresenter">
+			<Setter Property="Foreground" Value="Black" />
+		</Style>
+	</Style>
+
 	<Style Selector="TextBlock.h1" >
 		<Setter Property="FontSize" Value="32"/>
 	</Style>

@@ -10,8 +10,8 @@ namespace Tebbet.Database
         public DbSet<Races> Races { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=aws-0-eu-west-2.pooler.supabase.com;Port=5432;Database=postgres;Username=postgres.tntbspgkzrdtnncbdzzs;Password=5ENN^aFJ$h5U9f");
-            //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=anzexeuv;Username=postgres;Password=root");
+            //optionsBuilder.UseNpgsql("Host=aws-0-eu-west-2.pooler.supabase.com;Port=5432;Database=postgres;Username=postgres.tntbspgkzrdtnncbdzzs;Password=5ENN^aFJ$h5U9f");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=anzexeuv;Username=postgres;Password=root");
         }
     }
 }

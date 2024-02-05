@@ -1,8 +1,10 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tebbet.Database;
+using Tebbet.Models;
 using Tebbet.Services;
 using Tebbet.ViewModels;
 
@@ -12,12 +14,15 @@ namespace Tebbet.Controls
     public partial class HomeControl : UserControl
     {
         private Button? lastButton;
-        private readonly ComingRacesViewModel comingRacesViewModel;
+        private readonly List<Races> Races;
         public HomeControl()
         {
             InitializeComponent();
-            Loaded += HomeLoaded;
-            comingRacesViewModel = new ComingRacesViewModel();
+            using (var context = new DatabaseConnection())
+            {
+                Races = context.Races.ToList();
+            }
+                Loaded += HomeLoaded;
         }
 
         private void ButtonClick(object sender, RoutedEventArgs args)
@@ -39,23 +44,37 @@ namespace Tebbet.Controls
         private void HomeLoaded(object sender, EventArgs e)
         {
             ShowIncomingRace(BtnComingRace_0, 0);
+            if (DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.WindowLoaded();
+            }
         }
 
         private void ShowIncomingRace(Button button, int index)
         {
-            var race = comingRacesViewModel.ComingRaces[index];
-
-            if (DataContext is MainWindowViewModel viewModel)
+            if (Races.Count > 0)
             {
-                viewModel.setImageComingRace(race.Image);
-                viewModel.setHeaderComingRace(race.Title);
-                viewModel.setDateComingRace(race.Date);
-                viewModel.setAdressComingRace(race.Adress);
-            }
+                Circuits circuit;
+                var RacesAfterNow = Races.FindAll(x => x.Start > DateTime.Now).ToList();
+                var RacesOrder = RacesAfterNow.OrderBy(x => x.Start).ToList();
+                var race = RacesOrder[index];
+                using(var context = new DatabaseConnection())
+                {
+                    circuit = context.Circuits.First(x => x.id == race.CircuitId);
+                }
 
-            lastButton?.Classes.Remove("active");
-            button.Classes.Add("active");
-            lastButton = button;
+                if (DataContext is MainWindowViewModel viewModel)
+                {
+                    viewModel.setImageComingRace(circuit.Image);
+                    viewModel.setHeaderComingRace(race.Title);
+                    viewModel.setDateComingRace(race.Start.ToString("dddd dd MMMM yyyy - HH:mm"));
+                    viewModel.setAdressComingRace(circuit.Place + " - " + circuit.City);
+                }
+
+                lastButton?.Classes.Remove("active");
+                button.Classes.Add("active");
+                lastButton = button;
+            }
         }
     }
 }

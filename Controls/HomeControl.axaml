@@ -7,15 +7,16 @@
              x:Class="Tebbet.Controls.HomeControl"
 			 x:DataType="vm:MainWindowViewModel"
 			 Background="rgba(0, 0, 0, 0.5)"
-			 Height="2000">
+			 xmlns:converter="clr-namespace:Tebbet.Converter"
+			 >
 
 	<UserControl.Styles>
 		<StyleInclude Source="/Assets/Styles/AppStyles.axaml" />
 	</UserControl.Styles>
 
-	<Design.DataContext>
-		<vm:MainWindowViewModel/>
-	</Design.DataContext>
+	<UserControl.Resources>
+		<converter:BytesConverter x:Key="BytesConverter"/>
+	</UserControl.Resources>
 
 	<StackPanel>
 		<!-- Block de pub 100€ offerts -->
@@ -33,15 +34,15 @@
 			</Button>
 		</Grid>
 
-		<Grid HorizontalAlignment="Center" RowDefinitions="auto, auto, auto, auto" >
+		<StackPanel HorizontalAlignment="Center" >
 
-			<!-- Carte des 4 prochaines courses -->
+			<!-- Carte des 4 premières prochaines courses -->
 			<Border Background="Transparent" ClipToBounds="True" CornerRadius="10" Margin="0 20 0 0">
 				<Border.Effect>
 					<DropShadowEffect BlurRadius="5" OffsetY="2"/>
 				</Border.Effect>
 				<Grid ColumnDefinitions="250, 220" >
-					<Image Name="ImgComingRace" Source="{Binding ImageComingRace}" Stretch="Fill" Width="251" Height="150" />
+					<Image Name="ImgComingRace" Source="{Binding ImageComingRace, Converter={StaticResource BytesConverter}}" Stretch="Fill" Width="251" Height="150" />
 					<StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="5 5 0 0">
 						<Button Classes="TabComingRace" Name="BtnComingRace_0" Click="ButtonClick" />
 						<Button Classes="TabComingRace" Name="BtnComingRace_1" Click="ButtonClick" />
@@ -57,15 +58,30 @@
 				</Grid>
 			</Border>
 
-		</Grid>
-
-		<Border Background="White" Width="475" Height="150" Margin="0, 16, 0, 16" CornerRadius="12" Padding="12">
-			<StackPanel HorizontalAlignment="Left" >
-				<TextBlock Margin="0, 0, 0, 8">08/10/2023</TextBlock>
-				<Border BorderBrush="DarkGray" CornerRadius="100" Opacity="0.2"
-						BorderThickness="0.5" Width="450" HorizontalAlignment="Center">
-				</Border>
-			</StackPanel>
-		</Border>
+			<!-- Carte des prochaines courses -->
+			<ItemsControl ItemsSource="{Binding RacesCards}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border Background="White" Width="475" Height="170" Margin="0, 16, 0, 16" CornerRadius="12" Padding="12">
+							<StackPanel HorizontalAlignment="Left" >
+								<Grid RowDefinitions="auto, auto, auto, auto">
+									<TextBlock Classes="LakkiBlack" Text="{Binding Start, StringFormat='{}{0:dd/MM/yyyy}'}"/>
+									<Border Grid.Row="1" BorderBrush="DarkGray" CornerRadius="100" Opacity="0.2"
+					BorderThickness="0.5" Width="450" HorizontalAlignment="Center" Margin="0 5">
+									</Border>
+									<TextBlock Grid.Row="2" Classes="LakkiBlack" Text="{Binding Country}" />
+									<Grid Grid.Row="4" HorizontalAlignment="Center" RowDefinitions="auto, auto, auto">
+										<TextBlock HorizontalAlignment="Center" Classes="LakkiBlack" Text="{Binding Start, StringFormat='{}{0:dd/MM/yyyy - HH:mm}'}" />
+										<TextBlock Grid.Row="1" HorizontalAlignment="Center" Classes="LakkiBlack" Text="{Binding Place} - {Binding City}" />
+										<Button HorizontalAlignment="Center" Grid.Row="2" Content="Parier sur le match" Classes="NavButton RegisterButtonNav LakkiWhite"/>
+									</Grid>
+								</Grid>
+							</StackPanel>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+			
+		</StackPanel>
 	</StackPanel>
 </UserControl>

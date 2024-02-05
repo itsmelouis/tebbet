@@ -141,18 +141,18 @@ namespace Tebbet.ViewModels
         {
             ContentAddRace = "Ajouter une course";
             Title = "";
-            Start = DateTime.MinValue;
-            End = null;
-            Circuits = null;
+            Start = new DateTimeOffset(DateTime.Now);
+            End = new DateTimeOffset(DateTime.Now);
             ModalRace = true;
         }
 
-        private void GetRaces()
+        private List<Races> GetRaces()
         {
             using (var context = new DatabaseConnection())
             {
                 var races = context.Races.ToList();
                 Races = new ObservableCollection<Races>(races);
+                return races;
             }
         }
 
