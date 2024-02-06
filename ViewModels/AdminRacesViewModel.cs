@@ -188,7 +188,11 @@ namespace Tebbet.ViewModels
                     context.SaveChanges();
                     this.GetRaces();
                     ModalRace = false;
+
+                    // On appelle la fonction permettant d'insérer 10 escargots au hasard
+                    this.SaveSnailsParticipating(context, races.id);
                 }
+
             }
             else
             {
@@ -206,6 +210,21 @@ namespace Tebbet.ViewModels
                     _IdUpdateRace = null;
                 }
             }
+        }
+
+        private void SaveSnailsParticipating(DatabaseConnection context, int RacesId)
+        {
+            var Snails = context.Snails.ToList();
+            var SnailsParticipating = new List<SnailParticipatingRace>();
+            for (int i = 0; i < 10; i++)
+            {
+                var random = new Random();
+                var random_numb = random.Next(0, Snails.Count);
+                SnailsParticipating.Add(new SnailParticipatingRace { RacesId = RacesId, SnailsId = Snails[random_numb].id });
+                Snails.RemoveAt(random_numb);
+            }
+            context.SnailParticipatingRace.AddRange(SnailsParticipating);
+            context.SaveChanges();
         }
     }
 }

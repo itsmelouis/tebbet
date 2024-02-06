@@ -1,0 +1,110 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="850"
+			 xmlns:vm="using:Tebbet.ViewModels"
+             x:Class="Tebbet.Controls.CourseControl"
+			 x:DataType="vm:CourseViewModel">
+
+	<UserControl.Styles>
+		<StyleInclude Source="/Assets/Styles/AppStyles.axaml" />
+	</UserControl.Styles>
+
+	<Grid ColumnDefinitions="auto, auto" HorizontalAlignment="Center" VerticalAlignment="Top">
+		<StackPanel HorizontalAlignment="Center" Margin="250 0 0 0">
+			<Grid ColumnDefinitions="*, auto">
+				<Border Background="White" Width="475" Height="130" Margin="0, 10, 0, 10" CornerRadius="12" Padding="12" HorizontalAlignment="Center" VerticalAlignment="Center">
+					<StackPanel HorizontalAlignment="Left" >
+						<Grid RowDefinitions="auto, auto, auto, auto">
+							<TextBlock Classes="LakkiBlack" Text="{Binding Race.Start, StringFormat='{}{0:dd/MM/yyyy}'}"/>
+							<Border Grid.Row="1" BorderBrush="DarkGray" CornerRadius="100" Opacity="0.2"
+			BorderThickness="0.5" Width="450" HorizontalAlignment="Center" Margin="0 5">
+							</Border>
+							<TextBlock Grid.Row="2" Classes="LakkiBlack" Text="{Binding Circuit.Country}" />
+							<Grid Grid.Row="4" HorizontalAlignment="Center" RowDefinitions="auto, auto, auto">
+								<TextBlock HorizontalAlignment="Center" Classes="LakkiBlack" Text="{Binding Race.Start, StringFormat='{}{0:dd/MM/yyyy - HH:mm}'}" />
+								<TextBlock Grid.Row="1" HorizontalAlignment="Center" Classes="LakkiBlack">
+									<Run Text="{Binding Circuit.Place}" />
+									<Run Text=" - " />
+									<Run Text="{Binding Circuit.City}" />
+								</TextBlock>
+							</Grid>
+						</Grid>
+					</StackPanel>
+				</Border>
+			</Grid>
+
+			<Border Background="White" Width="475" Margin="0, 10, 0, 10" CornerRadius="12" Padding="12">
+				<StackPanel>
+					<TextBlock Margin="0 0 0 10">
+						<Image Margin="7 0 0 0" Width="15" Source="/Assets/blacksnail.png" />
+						<TextBlock Classes="LakkiBlack" Padding="0 2 0 0" Height="17" Text="Escargots" />
+					</TextBlock>
+					<!-- Liste escargots -->
+						<ItemsControl ItemsSource="{Binding Snails}" Name="SnailsControls">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Grid ColumnDefinitions="auto, *, auto">
+										<TextBlock Margin="0 7 0 0"  Classes="LakkiBlack" Text="{Binding name}" />
+										<Border Margin="15 0 15 0" Grid.Column="1" Background="LightGray" Width="" Height="0.5"></Border>
+											<Button Classes="NavButton RegisterButtonNav LakkiWhite" Grid.Column="2" Width="58" Height="28" Command="{Binding #SnailsControls.((vm:CourseViewModel)DataContext).BetCommand}" CommandParameter="{Binding idSnail}">
+												<Button.Content>
+													<TextBlock HorizontalAlignment="Center" FontSize="14" VerticalAlignment="Center" Text="{Binding BetOdds}" />
+												</Button.Content>
+											</Button>
+									</Grid>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+				</StackPanel>
+			</Border>
+		</StackPanel>
+		
+		<Border VerticalAlignment="Top" Grid.Column="1" Background="White" Margin="20 10" CornerRadius="12" Padding="12" Width="300">
+			<StackPanel>
+				<TextBlock Classes="LakkiBlack" FontSize="18" Margin="5 10 0 0" Text="Vous pariez sur..." />
+				<TextBlock Classes="LakkiBlack" Text="{Binding Alert}"/>
+				<!-- L'escargot sur lequel on pari -->
+				<Border IsVisible="{Binding HasBet}" Height="100" Margin="0 0 0 10" Background="White" BorderThickness="2" BorderBrush="#EEEEEE" CornerRadius="15">
+					<StackPanel>
+						<Grid Margin="10" ColumnDefinitions="auto, *">
+							<Border Height="18">
+								<TextBlock Classes="LakkiBlack" FontSize="16" Text="{Binding Bet.name}"/>
+							</Border>
+							<Border VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Background="#5F8C50" Width="40" Height="25" CornerRadius="15">
+								<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Classes="LakkiWhite" Grid.Column="2" Text="{Binding Bet.BetOdds}" Margin="0 7 0 0" />
+							</Border>
+						</Grid>
+						
+						<Grid Margin="10 0" ColumnDefinitions="auto, *">
+							<Border Background="#DDDDDD" CornerRadius="6">
+								<StackPanel Orientation="Horizontal" >
+									<TextBox Name="AmountBet" Background="Transparent" Width="100" Watermark="0" BorderThickness="0" Foreground="#999999" >
+									</TextBox>
+									<TextBlock Foreground="#999999" Text="€" VerticalAlignment="Center" Margin="5 0"/>
+								</StackPanel>
+							</Border>
+							<StackPanel Grid.Column="1" HorizontalAlignment="Right">
+								<Border Height="12">
+									<TextBlock FontSize="12" HorizontalAlignment="Right" Classes="LakkiBlack" Text="Gains"/>
+								</Border>
+								<Border Height="16" Margin="0 0 0 0">
+									<TextBlock FontSize="16" Classes="LakkiBlack">
+										<Run Text="{Binding Gain}"/>
+										<Run Text="€" />
+									</TextBlock>
+								</Border>
+							</StackPanel>
+						</Grid>
+					</StackPanel>
+				</Border>
+				
+				<!-- Bouton pour parier -->
+				<Button IsVisible="{Binding HasBet}" Classes="NavButton RegisterButtonNav LakkiWhite" Margin="0" Content="Parier sur l'escargot" Name="ButtonBet" />
+			</StackPanel>
+		</Border>
+		
+	</Grid>
+	
+</UserControl>

@@ -30,13 +30,23 @@ namespace Tebbet.Services
         public string? Postalcode { get; set; }
         public string? City { get; set; }
         public string? Password { get; set; }
-        public double? Credits { get; set; }
+        private double? _Credits;
+        public double? Credits 
+        {
+            get => _Credits;
+            set
+            {
+                _Credits = value;
+                OnCreditsEvent();
+            }
+        }
         public string? Phone { get; set; }
         public string? Role { get; set; }
         public bool IsAuthentified { get; set; }
         public bool IsAuthentifiedAsAdmin { get; set; }
         public bool IsAuthentifiedAsUser { get; set; }
         public event EventHandler AuthenticationSucceeded;
+        public event EventHandler CreditsEvent;
 
 
         public void SetUserInfo(List<Users> user)
@@ -72,6 +82,11 @@ namespace Tebbet.Services
         private void OnAuthenticationSucceeded()
         {
             AuthenticationSucceeded?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnCreditsEvent()
+        {
+            CreditsEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -6,7 +6,6 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Tebbet.Controls.HomeControl"
 			 x:DataType="vm:MainWindowViewModel"
-			 Background="rgba(0, 0, 0, 0.5)"
 			 xmlns:converter="clr-namespace:Tebbet.Converter"
 			 >
 
@@ -53,13 +52,13 @@
 						<TextBlock HorizontalAlignment="Center" FontSize="10" Margin="0 5 0 0" Classes="LakkiWhite" Text="{Binding HeaderComingRace}" />
 						<TextBlock Grid.Row="1" FontSize="9" Classes="LakkiGray" Margin="10 0 0 0" Text="{Binding DateComingRace}" />
 						<TextBlock Grid.Row="2" FontSize="12" Classes="LakkiWhite" Margin="10 0 0 0" Padding="0 0 10 0" Text="{Binding AdressComingRace}"/>
-						<Button Grid.Row="3" Classes="LakkiBlack BetButton" />
+						<Button Grid.Row="3" Classes="LakkiBlack BetButton" Command="{Binding BetRace}" CommandParameter="{Binding IdComingRace}" />
 					</Grid>
 				</Grid>
 			</Border>
 
 			<!-- Carte des prochaines courses -->
-			<ItemsControl ItemsSource="{Binding RacesCards}">
+			<ItemsControl ItemsSource="{Binding RacesCards}" Name="ItemRaceCard">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<Border Background="White" Width="475" Height="170" Margin="0, 10, 0, 10" CornerRadius="12" Padding="12">
@@ -77,7 +76,7 @@
 											<Run Text=" - " />
 											<Run Text="{Binding City}" />
 										</TextBlock>
-										<Button HorizontalAlignment="Center" Grid.Row="2" Content="Parier sur le match" Classes="NavButton RegisterButtonNav LakkiWhite"/>
+										<Button HorizontalAlignment="Center" Grid.Row="2" Content="Parier sur le match" Classes="NavButton RegisterButtonNav LakkiWhite" Command="{Binding #ItemRaceCard.((vm:MainWindowViewModel)DataContext).BetRace}" CommandParameter="{Binding id}"/>
 									</Grid>
 								</Grid>
 							</StackPanel>

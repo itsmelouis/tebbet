@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive;
 using Tebbet.Controls;
 using Tebbet.Database;
 using Tebbet.Models;
@@ -23,6 +24,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     private MainWindowViewModel()
     {
         NavbarControl = new NavbarControl();
+        BetRace = ReactiveCommand.Create<int>(ToBetRace);
     }
 
     public static MainWindowViewModel GetInstance()
@@ -40,7 +42,10 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     private string? _DateComingRace;
     private string? _AdressComingRace;
     private byte[] _ImageComingRace;
+    private int _IdComingRace;
     private ObservableCollection<RacesCards> _RacesCards;
+
+    public ReactiveCommand<int, Unit> BetRace { get; }
 
     public ObservableCollection<RacesCards> RacesCards
     {
@@ -108,6 +113,19 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         }
     }
 
+    public int IdComingRace
+    {
+        get => _IdComingRace;
+        set
+        {
+            if (_IdComingRace != value)
+            {
+                _IdComingRace = value;
+                this.RaisePropertyChanged(nameof(IdComingRace));
+            }
+        }
+    }
+
     public void setImageComingRace(byte[] value)
     {
         ImageComingRace = value;
@@ -127,6 +145,11 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
         AdressComingRace = value;
     }
+    public void setId(int value)
+    {
+        IdComingRace = value;
+    }
+
 
     public void WindowLoaded()
     {
@@ -169,6 +192,10 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     }
 
     // route
+    private void ToBetRace(int id)
+    {
+        ContentControl = new CourseControl(id);
+    }
     public override void ShowControl(Type controlType)
     {
         ContentControl = controlType.Name switch
@@ -176,6 +203,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
             nameof(HomeControl) => new HomeControl(),
             nameof(LoginControl) => new LoginControl(),
             nameof(RegisterControl) => new RegisterControl(),
+            nameof(RankingControl) => new RankingControl(),
             _ => new HomeControl()
         };
     }

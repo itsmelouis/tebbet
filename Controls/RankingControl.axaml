@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:vm="using:Tebbet.ViewModels"
+             x:Class="Tebbet.Controls.RankingControl"
+			 x:DataType="vm:RankingViewModel">
+
+	<UserControl.Styles>
+		<StyleInclude Source="/Assets/Styles/AppStyles.axaml" />
+	</UserControl.Styles>
+
+	<StackPanel HorizontalAlignment="Center">
+		<Border CornerRadius="18" Background="White" Padding="12 8 12 0" Margin="10">
+			<TextBlock Classes="LakkiBlack" FontSize="24">
+				Classements des meilleurs escargots
+			</TextBlock>
+		</Border>
+		
+		<ItemsControl ItemsSource="{Binding Snails}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Border CornerRadius="27" Background="White" Padding="8" Margin="5" Width="220">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+							<Border Background="#5F8C50" CornerRadius="100" Width="25" Height="25">
+								<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0 4 0 0" Classes="LakkiWhite" Text="{Binding general_rank}" FontSize="18"/>	   
+							</Border>
+							<TextBlock FontSize="18" Classes="LakkiBlack" Width="180" Margin="10,8,0,0"  Text="{Binding name}" />
+						</StackPanel>
+					</Border>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</StackPanel>
+</UserControl>

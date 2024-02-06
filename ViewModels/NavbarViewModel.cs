@@ -13,6 +13,7 @@ namespace Tebbet.ViewModels
     public class NavbarViewModel : ViewModelBase, INotifyPropertyChanged
     {
         private double? _Credits;
+        private UserService user {  get; set; }
 
         public double? Credits
         {
@@ -29,7 +30,14 @@ namespace Tebbet.ViewModels
 
         public NavbarViewModel() 
         {
-            Credits = UserService.Credits;
+            user = UserService.GetInstance();
+            Credits = user.Credits;
+            user.CreditsEvent += SetCredits;
+        }
+
+        private void SetCredits(object sender, EventArgs e)
+        {
+            Credits = user.Credits;
         }
     }
 }

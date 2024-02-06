@@ -69,6 +69,7 @@ namespace Tebbet.Controls
                     viewModel.setHeaderComingRace(race.Title);
                     viewModel.setDateComingRace(race.Start.ToString("dddd dd MMMM yyyy - HH:mm"));
                     viewModel.setAdressComingRace(circuit.Place + " - " + circuit.City);
+                    viewModel.setId(race.id);
                 }
 
                 lastButton?.Classes.Remove("active");

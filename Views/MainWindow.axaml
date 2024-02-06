@@ -8,11 +8,11 @@
         x:DataType="vm:MainWindowViewModel"
 		xmlns:controls="clr-namespace:Tebbet.Controls"
         Icon="/Assets/logo.ico"
-		Background="White"
+		Background="rgba(0, 0, 0, 0.5)"
         Title="Tebbet">
 
 	<Window.Background>
-		<ImageBrush Stretch="Fill" Source="/Assets/mainbackground.png" />
+		<ImageBrush Stretch="Fill" Source="/Assets/mainbackground.jpg" />
 	</Window.Background>
 	
 	<Window.Styles>
@@ -20,10 +20,9 @@
 	</Window.Styles>
 
 	<ScrollViewer VerticalScrollBarVisibility="Auto">
-	<StackPanel>
-		
-		<ContentControl Content="{Binding NavbarControl}" />
-		<ContentControl Content="{Binding ContentControl}" />
-	</StackPanel>
-		</ScrollViewer>
+		<StackPanel>
+			<ContentControl Content="{Binding NavbarControl}" />
+			<ContentControl Content="{Binding ContentControl}" />
+		</StackPanel>
+	</ScrollViewer>
 </Window>

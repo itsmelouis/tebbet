@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tebbet.Database;
@@ -11,9 +12,11 @@ using Tebbet.Database;
 namespace Tebbet.Migrations
 {
     [DbContext(typeof(DatabaseConnection))]
-    partial class DatabaseConnectionModelSnapshot : ModelSnapshot
+    [Migration("20240206095729_6")]
+    partial class _6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,36 +24,6 @@ namespace Tebbet.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Tebbet.Models.Bets", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text")
-                        .HasColumnOrder(1);
-
-                    b.Property<int>("RaceId")
-                        .HasColumnType("integer")
-                        .HasColumnOrder(2);
-
-                    b.Property<DateTime>("Date_Bet")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<double>("Gains")
-                        .HasColumnType("double precision");
-
-                    b.Property<bool>("Has_Won")
-                        .HasColumnType("boolean");
-
-                    b.Property<double>("Odds")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("SnailId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UserId", "RaceId");
-
-                    b.ToTable("Bets");
-                });
 
             modelBuilder.Entity("Tebbet.Models.Circuits", b =>
                 {

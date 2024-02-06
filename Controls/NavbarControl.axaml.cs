@@ -31,6 +31,10 @@ namespace Tebbet.Controls
                 {
                     MainWindow.ShowControl(typeof(RegisterControl));
                 }
+                if (button.Classes.Contains("Ranking"))
+                {
+                    MainWindow.ShowControl(typeof(RankingControl));
+                }
             }
         }
     }
