@@ -20,6 +20,7 @@ namespace Tebbet.Models
         public double Odds { get; set; }
         public double Gains { get; set; }
         public bool Has_Won { get; set; }
+        public bool Has_Lost { get; set; }
         public DateTime Date_Bet { get; set; }
     }
 }

@@ -19,5 +19,6 @@ namespace Tebbet.Models
         [ForeignKey("CircuitId")]
         public Circuits Circuits { get; set; }
         public int CircuitId { get; set; }
+        public bool IsEnded {  get; set; }
     }
 }

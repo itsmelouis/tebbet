@@ -19,6 +19,7 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            var racesServices = new RacesServices();
             var Route = RouteService.GetInstance();
             Route.ChangePage("MainWindow");
             /*desktop.MainWindow = new MainWindow

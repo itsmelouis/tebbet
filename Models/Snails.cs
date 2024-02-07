@@ -16,6 +16,5 @@ namespace Tebbet.Models
         [StringLength(50)]
         public string name { get; set; }
         public int general_rank { get; set; }
-
     }
 }
