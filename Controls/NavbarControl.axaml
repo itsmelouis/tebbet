@@ -28,7 +28,7 @@
 				<Button Classes="NavButton RegisterButtonNav LakkiWhite Register" Grid.Column="1" Content="Inscription" Click="ButtonClick" />
 			</Grid>
 			<Grid IsVisible="{Binding IsAuthentifiedAsUser}" HorizontalAlignment="Right" ColumnDefinitions="auto, auto, auto" RowDefinitions="auto" Grid.Column="2">
-				<Button Classes="NavButton NavLink LakkiWhite">
+				<Button Classes="NavButton NavLink LakkiWhite History" Click="ButtonClick">
 					<Button.Content>
 						<StackPanel Orientation="Horizontal">
 							<Image Source="avares://Tebbet/Assets/dollar.png" Width="20" VerticalAlignment="Top" />
@@ -36,7 +36,7 @@
 						</StackPanel>
 					</Button.Content>
 				</Button>
-				<Button Classes="NavButton NavLink LakkiWhite" Grid.Column="1">
+				<Button Classes="NavButton NavLink LakkiWhite History" Grid.Column="1" Click="ButtonClick">
 					<Button.Content>
 						<StackPanel Orientation="Horizontal">
 							<Image Source="avares://Tebbet/Assets/smallsnail.png" Width="20" VerticalAlignment="Top" />
@@ -44,11 +44,11 @@
 						</StackPanel>
 					</Button.Content>
 				</Button>
-				<Button Classes="NavButton NavLink LakkiWhite" Grid.Column="2">
+				<Button Classes="NavButton NavLink LakkiWhite Logout" Grid.Column="2" Click="ButtonClick">
 					<Button.Content>
 						<StackPanel Orientation="Horizontal">
 							<Image Source="avares://Tebbet/Assets/user.png" Width="20" VerticalAlignment="Top" />
-							<TextBlock Text="Compte" Margin="5 2" VerticalAlignment="Center" />
+							<TextBlock Text="Déconnexion" Margin="5 2" VerticalAlignment="Center"/>
 						</StackPanel>
 					</Button.Content>
 				</Button>

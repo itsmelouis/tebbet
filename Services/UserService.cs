@@ -46,6 +46,7 @@ namespace Tebbet.Services
         public bool IsAuthentifiedAsAdmin { get; set; }
         public bool IsAuthentifiedAsUser { get; set; }
         public event EventHandler AuthenticationSucceeded;
+        public event EventHandler LogoutSucceeded;
         public event EventHandler CreditsEvent;
 
 
@@ -77,6 +78,30 @@ namespace Tebbet.Services
 
                 OnAuthenticationSucceeded();
             }
+        }
+
+        public void Logout()
+        {
+            Email = null;
+            Lastname = null;
+            Firstname = null;
+            Birthdate = DateTime.MinValue;
+            Address = null;
+            Postalcode = null;
+            City = null;
+            Password = null;
+            Credits = null;
+            Phone = null;
+            Role = null;
+            IsAuthentified = false;
+            IsAuthentifiedAsUser = false;
+            IsAuthentifiedAsAdmin = false;
+            OnLogoutSucceeded();
+        }
+
+        private void OnLogoutSucceeded()
+        {
+            LogoutSucceeded?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnAuthenticationSucceeded()

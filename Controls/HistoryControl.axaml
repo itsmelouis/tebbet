@@ -1,0 +1,92 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:vm="using:Tebbet.ViewModels"
+             x:Class="Tebbet.Controls.HistoryControl"
+			 x:DataType="vm:HistoryViewModel"
+			 Background="WhiteSmoke">
+
+	<UserControl.Styles>
+		<StyleInclude Source="/Assets/Styles/AppStyles.axaml" />
+	</UserControl.Styles>
+
+	<Design.DataContext>
+		<vm:HistoryViewModel />
+	</Design.DataContext>
+
+	<StackPanel>
+		<Border Background="White" Width="475" Height="180" Margin="0, 10, 0, 10" CornerRadius="12" Padding="12">
+			<StackPanel>
+				<TextBlock FontSize="20" Margin="0 0 0 10">
+					<Image Margin="7 0 0 0" Width="20" Source="avares://Tebbet/Assets/blackdollar.png" />
+					<TextBlock Classes="LakkiBlack" Padding="0 3 0 0" Height="28" Text="Dépôts" FontWeight="DemiBold"/>
+				</TextBlock>
+				<TextBlock Classes="LakkiBlack" Text="{Binding Message}"/>
+				<StackPanel HorizontalAlignment="Center" Margin="0 10">
+					<Border Background="#DDDDDD" CornerRadius="6">
+						<StackPanel Orientation="Horizontal">
+							<TextBox Name="Amount" Background="Transparent" Width="100" Watermark="0" BorderThickness="0" Foreground="#999999">
+							</TextBox>
+							<TextBlock Foreground="#999999" Text="€" VerticalAlignment="Center" Margin="5 0"/>
+						</StackPanel>
+					</Border>
+				</StackPanel>
+				<StackPanel Margin="0 10" HorizontalAlignment="Center" Orientation="Horizontal"> 
+					<Button Name="Withdraw" Classes="LakkiBlack NavButton GrayButtonNav" Width="200" Margin="10 0">Retirer</Button>
+					<Button Name="Deposit" Classes="LakkiWhite NavButton RegisterButtonNav" Width="200" Margin="10 0">Déposer</Button>
+				</StackPanel>
+			</StackPanel>
+		</Border>
+
+		<Border Background="White" Width="475" Margin="0, 10, 0, 10" CornerRadius="12" Padding="12">
+			<StackPanel>
+				<TextBlock FontSize="20" Margin="0 0 0 10">
+					<Image Margin="7 0 0 0" Width="20" Source="avares://Tebbet/Assets/trophy.png" />
+					<TextBlock Classes="LakkiBlack" Padding="0 3 0 0" Height="28" Text="Mes paris" FontWeight="DemiBold"/>
+				</TextBlock>
+				<TabControl Margin="5">
+					<TabItem Classes="LakkiBlack" Padding="10" FontSize="18" Header="Gagnés">
+						<!-- Border de l'historique d'un paris -->
+						<ItemsControl ItemsSource="{Binding HistoryBets}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Border Width="400" BorderBrush="#EEEEEE" BorderThickness="1" CornerRadius="15" Padding="10">
+										<StackPanel>
+											<Grid ColumnDefinitions="auto, auto, *">
+												<TextBlock Classes="LakkiBlack" FontSize="18" Text="{Binding Snail_Name}"/>
+												<TextBlock Grid.Column="1" Classes="LakkiBlack" Foreground="Gray" Margin="10 3" Opacity="0.8" FontSize="12" Text="{Binding Date_Bet}"/>
+												<Border Grid.Column="2" CornerRadius="20" Background="{Binding Color}" Padding="10 7" Height="30" HorizontalAlignment="Right">
+													<TextBlock Classes="LakkiWhite"    HorizontalAlignment="Right" Text="{Binding Odds}"/>
+												</Border>
+											</Grid>
+											<Grid Margin="0 15 0 0" ColumnDefinitions="auto, auto, auto, *">
+												<TextBlock Classes="LakkiBlack" FontSize="14" Text="	 Mise: " Height="22" Padding="0" Margin="0"/>
+												<TextBlock Grid.Column="1" Classes="LakkiBlack" FontSize="18" Text="{Binding Bets}" Height="24" Padding="0" Margin="0"/>
+												<TextBlock Grid.Column="2" Classes="LakkiBlack" FontSize="18" Text="€" Height="24" Padding="0" Margin="0"/>
+												<StackPanel Orientation="Horizontal" Grid.Column="3" HorizontalAlignment="Right">
+													<TextBlock Classes="LakkiBlack" FontSize="14" Text="Gains: " Foreground="{Binding Color}" Height="22" Padding="0" Margin="0"/>
+													<TextBlock Grid.Column="1" Classes="LakkiBlack" FontSize="18" Foreground="{Binding Color}" Text="{Binding Gains}" Height="24" Padding="0" Margin="0"/>
+													<TextBlock Grid.Column="2" Classes="LakkiBlack" FontSize="18" Foreground="{Binding Color}" Height="24" Padding="0" Margin="0" Text="€"/>
+												</StackPanel>
+											</Grid>
+										</StackPanel>
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</TabItem>
+					
+					<TabItem Classes="LakkiBlack" Padding="10" FontSize="18" Header="Perdus">
+						<TextBlock Margin="5">This is tab 2 content</TextBlock>
+					</TabItem>
+					<TabItem Classes="LakkiBlack" Padding="10" FontSize="18" Header="Total">
+						<TextBlock Margin="5">This is tab 3 content</TextBlock>
+					</TabItem>
+				</TabControl>
+			</StackPanel>
+		</Border>
+	</StackPanel>
+	
+</UserControl>

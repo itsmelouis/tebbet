@@ -6,15 +6,16 @@ namespace Tebbet.Controls
 {
     public partial class NavbarControl : UserControl
     {
+        NavbarViewModel viewModel;
         public NavbarControl()
         {
             InitializeComponent();
-            DataContext = new NavbarViewModel();
+            viewModel = new NavbarViewModel();
+            DataContext = viewModel;
         }
 
         private void ButtonClick(object sender, RoutedEventArgs args)
         {
-            var test = DataContext;
             if (sender is Button button)
             {
                 var MainWindow = MainWindowViewModel.GetInstance();
@@ -34,6 +35,14 @@ namespace Tebbet.Controls
                 if (button.Classes.Contains("Ranking"))
                 {
                     MainWindow.ShowControl(typeof(RankingControl));
+                }
+                if (button.Classes.Contains("History"))
+                {
+                    MainWindow.ShowControl(typeof(HistoryControl));
+                }
+                if (button.Classes.Contains("Logout"))
+                {
+                    viewModel.Logout();
                 }
             }
         }

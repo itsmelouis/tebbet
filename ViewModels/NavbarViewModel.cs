@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tebbet.Controls;
+using Tebbet.Models;
 using Tebbet.Services;
 
 namespace Tebbet.ViewModels
@@ -38,6 +39,14 @@ namespace Tebbet.ViewModels
         private void SetCredits(object sender, EventArgs e)
         {
             Credits = user.Credits;
+        }
+
+        public void Logout()
+        {
+            if (user.IsAuthentified)
+            {
+                user.Logout();
+            }
         }
     }
 }

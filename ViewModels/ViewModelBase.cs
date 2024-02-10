@@ -80,9 +80,15 @@ public class ViewModelBase : ReactiveObject, INotifyPropertyChanged, InterfaceSh
     {
         UserService = UserService.GetInstance();
         UserService.AuthenticationSucceeded += whenAuthentified;
+        UserService.LogoutSucceeded += whenLogout;
         IsAuthentified = UserService.IsAuthentified;
         IsAuthentifiedAsAdmin = UserService.IsAuthentifiedAsAdmin;
         IsAuthentifiedAsUser = UserService.IsAuthentifiedAsUser;
+    }
+
+    private void whenLogout(object sender, EventArgs e)
+    {
+        NavbarControl = new NavbarControl();
     }
 
     private void whenAuthentified(object sender, EventArgs e)
