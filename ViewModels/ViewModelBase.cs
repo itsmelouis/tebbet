@@ -89,6 +89,7 @@ public class ViewModelBase : ReactiveObject, INotifyPropertyChanged, InterfaceSh
     private void whenLogout(object sender, EventArgs e)
     {
         NavbarControl = new NavbarControl();
+        this.ShowControl(typeof(HomeControl));
     }
 
     private void whenAuthentified(object sender, EventArgs e)

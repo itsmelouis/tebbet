@@ -160,11 +160,11 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
             if (racesNow.Count > 4)
             {
                 var racesAfter4 = racesNow.GetRange(4, racesNow.Count - 4).ToList();
-                RacesCards = new ObservableCollection<RacesCards>();
+                List<RacesCards> racesCardsList = new();
                 foreach (var race in racesAfter4)
                 {
                     var circuit = context.Circuits.First(x => x.id == race.CircuitId);
-                    RacesCards.Add(new RacesCards
+                    racesCardsList.Add(new RacesCards
                     {
                         City = circuit.City,
                         Country = circuit.Country,
@@ -174,6 +174,8 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
                         Title = race.Title
                     });
                 }
+                var racesCardsListOrdered = racesCardsList.OrderBy(x => x.Start);
+                RacesCards = new ObservableCollection<RacesCards>(racesCardsListOrdered);
             }
         }
     }

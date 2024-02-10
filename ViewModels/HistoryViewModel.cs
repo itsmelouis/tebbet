@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Tebbet.Database;
 using Tebbet.Models;
 using Tebbet.Services;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Tebbet.ViewModels
 {
@@ -48,34 +49,55 @@ namespace Tebbet.ViewModels
         public HistoryViewModel() 
         {
             userService = UserService.GetInstance();
-            GetHistoryBetsWin();
+            GetHistoryBets("Win");
         }
 
-        private void GetHistoryBetsWin()
+        public void GetHistoryBets(string condition)
         {
             using (var context = new DatabaseConnection())
             {
                 Users user = context.Users.Single(x => x.Email == userService.Email);
-                List<Bets> bets = context.Bets.Where(x => x.UserId == userService.Email).Where(x => x.Has_Won == true).ToList();
-                List<HistoryBets> historybetslist = new();
-                foreach (var bet in bets)
+                List<Bets> bets = new();
+                switch (condition)
                 {
-                    Snails snail = context.Snails.Single(x => x.id == bet.SnailId);
-                    HistoryBets historyBets = new HistoryBets {
-                        Snail_Name = snail.name,
-                        Gains = bet.Gains,
-                        Odds = bet.Odds,
-                        Has_Won = bet.Has_Won,
-                        Has_Lost = bet.Has_Lost,
-                        Date_Bet = bet.Date_Bet.ToString("dd/MM/yyyy"),
-                        Bets = bet.Gains / bet.Odds,
-                        Color = bet.Has_Lost ? "#FF3535" : bet.Has_Won ? "#5F8C50" : "Black"
-                    };
-                    historybetslist.Add(historyBets);
+                    case "Win":
+                        bets = context.Bets.Where(x => x.UserId == userService.Email).Where(x => x.Has_Won == true).ToList();
+                        break;
+                    case "Loose":
+                        bets = context.Bets.Where(x => x.UserId == userService.Email).Where(x => x.Has_Lost == true).ToList();
+                        break;
+                    case "All":
+                        bets = context.Bets.Where(x => x.UserId == userService.Email).ToList();
+                        break;
                 }
-                HistoryBets = new ObservableCollection<HistoryBets>(historybetslist);
+                List<HistoryBets> historybetslist = GetHistoryBetsList(bets, context);
+                var orderedhistorybetslist = historybetslist.OrderByDescending(x => x.Date_Bet);
+                HistoryBets = new ObservableCollection<HistoryBets>(orderedhistorybetslist);
             }
         }
+
+        private List<HistoryBets> GetHistoryBetsList(List<Bets> bets, DatabaseConnection context)
+        {
+            List<HistoryBets> historybetslist = new();
+            foreach (var bet in bets)
+            {
+                Snails snail = context.Snails.Single(x => x.id == bet.SnailId);
+                HistoryBets historyBets = new HistoryBets
+                {
+                    Snail_Name = snail.name,
+                    Gains = bet.Gains,
+                    Odds = bet.Odds,
+                    Has_Won = bet.Has_Won,
+                    Has_Lost = bet.Has_Lost,
+                    Date_Bet = bet.Date_Bet.ToString("dd/MM/yyyy"),
+                    Bets = bet.Gains / bet.Odds,
+                    Color = bet.Has_Lost ? "#FF3535" : bet.Has_Won ? "#5F8C50" : "Black",
+                    Text = bet.Has_Lost ? "Pertes: " : "Gains: "
+                };
+                historybetslist.Add(historyBets);
+            }
+            return historybetslist;
+        } 
 
         public void Withdraw(double value)
         {

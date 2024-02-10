@@ -16,5 +16,6 @@ namespace Tebbet.Models
         public double Gains { get; set; }
         public double Bets { get; set; }
         public string Color { get; set; }
+        public string Text { get; set; }
     }
 }

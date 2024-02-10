@@ -15,6 +15,9 @@ namespace Tebbet.Controls
             Withdraw.Click += Handler;
             Deposit.Click += Handler;
             Amount.KeyUp += Handler;
+            Loose.GotFocus += Handler;
+            Win.GotFocus += Handler;
+            All.GotFocus += Handler;
         }
 
         private void Handler(object sender, RoutedEventArgs args)
@@ -60,6 +63,13 @@ namespace Tebbet.Controls
                             textBox.Text = null;
                         }
                     }
+                }
+            }
+            if (sender is TabItem tabItem)
+            {
+                if (tabItem.Name != null)
+                {
+                    viewModel.GetHistoryBets(tabItem.Name);
                 }
             }
         }

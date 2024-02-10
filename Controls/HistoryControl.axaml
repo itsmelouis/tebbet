@@ -5,8 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:vm="using:Tebbet.ViewModels"
              x:Class="Tebbet.Controls.HistoryControl"
-			 x:DataType="vm:HistoryViewModel"
-			 Background="WhiteSmoke">
+			 x:DataType="vm:HistoryViewModel">
 
 	<UserControl.Styles>
 		<StyleInclude Source="/Assets/Styles/AppStyles.axaml" />
@@ -47,12 +46,12 @@
 					<TextBlock Classes="LakkiBlack" Padding="0 3 0 0" Height="28" Text="Mes paris" FontWeight="DemiBold"/>
 				</TextBlock>
 				<TabControl Margin="5">
-					<TabItem Classes="LakkiBlack" Padding="10" FontSize="18" Header="Gagnés">
-						<!-- Border de l'historique d'un paris -->
+					<TabItem Classes="LakkiBlack" Padding="10" FontSize="18" Header="Gagnés" Name="Win">
+						<!-- Border de l'historique d'un paris gagné -->
 						<ItemsControl ItemsSource="{Binding HistoryBets}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
-									<Border Width="400" BorderBrush="#EEEEEE" BorderThickness="1" CornerRadius="15" Padding="10">
+									<Border Width="400" BorderBrush="#EEEEEE" BorderThickness="1" CornerRadius="15" Padding="10" Margin="0 5">
 										<StackPanel>
 											<Grid ColumnDefinitions="auto, auto, *">
 												<TextBlock Classes="LakkiBlack" FontSize="18" Text="{Binding Snail_Name}"/>
@@ -62,11 +61,11 @@
 												</Border>
 											</Grid>
 											<Grid Margin="0 15 0 0" ColumnDefinitions="auto, auto, auto, *">
-												<TextBlock Classes="LakkiBlack" FontSize="14" Text="	 Mise: " Height="22" Padding="0" Margin="0"/>
+												<TextBlock Classes="LakkiBlack" FontSize="14" Text="Mise: " Height="22" Padding="0" Margin="0"/>
 												<TextBlock Grid.Column="1" Classes="LakkiBlack" FontSize="18" Text="{Binding Bets}" Height="24" Padding="0" Margin="0"/>
 												<TextBlock Grid.Column="2" Classes="LakkiBlack" FontSize="18" Text="€" Height="24" Padding="0" Margin="0"/>
 												<StackPanel Orientation="Horizontal" Grid.Column="3" HorizontalAlignment="Right">
-													<TextBlock Classes="LakkiBlack" FontSize="14" Text="Gains: " Foreground="{Binding Color}" Height="22" Padding="0" Margin="0"/>
+													<TextBlock Classes="LakkiBlack" FontSize="14" Text="{Binding Text}" Foreground="{Binding Color}" Height="22" Padding="0" Margin="0"/>
 													<TextBlock Grid.Column="1" Classes="LakkiBlack" FontSize="18" Foreground="{Binding Color}" Text="{Binding Gains}" Height="24" Padding="0" Margin="0"/>
 													<TextBlock Grid.Column="2" Classes="LakkiBlack" FontSize="18" Foreground="{Binding Color}" Height="24" Padding="0" Margin="0" Text="€"/>
 												</StackPanel>
@@ -78,11 +77,65 @@
 						</ItemsControl>
 					</TabItem>
 					
-					<TabItem Classes="LakkiBlack" Padding="10" FontSize="18" Header="Perdus">
-						<TextBlock Margin="5">This is tab 2 content</TextBlock>
+					<TabItem Classes="LakkiBlack" Padding="10" FontSize="18" Header="Perdus" Name="Loose">
+						<!-- Border de l'historique d'un paris perdu -->
+						<ItemsControl ItemsSource="{Binding HistoryBets}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Border Width="400" BorderBrush="#EEEEEE" BorderThickness="1" CornerRadius="15" Padding="10" Margin="0 5">
+										<StackPanel>
+											<Grid ColumnDefinitions="auto, auto, *">
+												<TextBlock Classes="LakkiBlack" FontSize="18" Text="{Binding Snail_Name}"/>
+												<TextBlock Grid.Column="1" Classes="LakkiBlack" Foreground="Gray" Margin="10 3" Opacity="0.8" FontSize="12" Text="{Binding Date_Bet}"/>
+												<Border Grid.Column="2" CornerRadius="20" Background="{Binding Color}" Padding="10 7" Height="30" HorizontalAlignment="Right">
+													<TextBlock Classes="LakkiWhite"    HorizontalAlignment="Right" Text="{Binding Odds}"/>
+												</Border>
+											</Grid>
+											<Grid Margin="0 15 0 0" ColumnDefinitions="auto, auto, auto, *">
+												<TextBlock Classes="LakkiBlack" FontSize="14" Text="Mise: " Height="22" Padding="0" Margin="0"/>
+												<TextBlock Grid.Column="1" Classes="LakkiBlack" FontSize="18" Text="{Binding Bets}" Height="24" Padding="0" Margin="0"/>
+												<TextBlock Grid.Column="2" Classes="LakkiBlack" FontSize="18" Text="€" Height="24" Padding="0" Margin="0"/>
+												<StackPanel Orientation="Horizontal" Grid.Column="3" HorizontalAlignment="Right">
+													<TextBlock Classes="LakkiBlack" FontSize="14" Text="{Binding Text}" Foreground="{Binding Color}" Height="22" Padding="0" Margin="0"/>
+													<TextBlock Grid.Column="1" Classes="LakkiBlack" FontSize="18" Foreground="{Binding Color}" Text="{Binding Gains}" Height="24" Padding="0" Margin="0"/>
+													<TextBlock Grid.Column="2" Classes="LakkiBlack" FontSize="18" Foreground="{Binding Color}" Height="24" Padding="0" Margin="0" Text="€"/>
+												</StackPanel>
+											</Grid>
+										</StackPanel>
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
 					</TabItem>
-					<TabItem Classes="LakkiBlack" Padding="10" FontSize="18" Header="Total">
-						<TextBlock Margin="5">This is tab 3 content</TextBlock>
+					<TabItem Classes="LakkiBlack" Padding="10" FontSize="18" Header="Total" Name="All">
+						<!-- Border de l'historique d'un paris perdu/gagné/en attente -->
+						<ItemsControl ItemsSource="{Binding HistoryBets}" Margin="0 5">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Border Width="400" BorderBrush="#EEEEEE" BorderThickness="1" CornerRadius="15" Padding="10" Margin="0 5">
+										<StackPanel>
+											<Grid ColumnDefinitions="auto, auto, *">
+												<TextBlock Classes="LakkiBlack" FontSize="18" Text="{Binding Snail_Name}"/>
+												<TextBlock Grid.Column="1" Classes="LakkiBlack" Foreground="Gray" Margin="10 3" Opacity="0.8" FontSize="12" Text="{Binding Date_Bet}"/>
+												<Border Grid.Column="2" CornerRadius="20" Background="{Binding Color}" Padding="10 7" Height="30" HorizontalAlignment="Right">
+													<TextBlock Classes="LakkiWhite"    HorizontalAlignment="Right" Text="{Binding Odds}"/>
+												</Border>
+											</Grid>
+											<Grid Margin="0 15 0 0" ColumnDefinitions="auto, auto, auto, *">
+												<TextBlock Classes="LakkiBlack" FontSize="14" Text="Mise: " Height="22" Padding="0" Margin="0"/>
+												<TextBlock Grid.Column="1" Classes="LakkiBlack" FontSize="18" Text="{Binding Bets}" Height="24" Padding="0" Margin="0"/>
+												<TextBlock Grid.Column="2" Classes="LakkiBlack" FontSize="18" Text="€" Height="24" Padding="0" Margin="0"/>
+												<StackPanel Orientation="Horizontal" Grid.Column="3" HorizontalAlignment="Right">
+													<TextBlock Classes="LakkiBlack" FontSize="14" Text="{Binding Text}" Foreground="{Binding Color}" Height="22" Padding="0" Margin="0"/>
+													<TextBlock Grid.Column="1" Classes="LakkiBlack" FontSize="18" Foreground="{Binding Color}" Text="{Binding Gains}" Height="24" Padding="0" Margin="0"/>
+													<TextBlock Grid.Column="2" Classes="LakkiBlack" FontSize="18" Foreground="{Binding Color}" Height="24" Padding="0" Margin="0" Text="€"/>
+												</StackPanel>
+											</Grid>
+										</StackPanel>
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
 					</TabItem>
 				</TabControl>
 			</StackPanel>
