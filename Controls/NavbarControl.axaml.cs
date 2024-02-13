@@ -40,6 +40,10 @@ namespace Tebbet.Controls
                 {
                     MainWindow.ShowControl(typeof(HistoryControl));
                 }
+                if (button.Classes.Contains("Lives"))
+                {
+                    MainWindow.ShowControl(typeof(LiveControl));
+                }
                 if (button.Classes.Contains("Logout"))
                 {
                     viewModel.Logout();

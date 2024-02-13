@@ -22,12 +22,13 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
 {
     // Singleton
     private static MainWindowViewModel _instance;
-
+    private LivesServices Lives;
     private MainWindowViewModel()
     {
         NavbarControl = new NavbarControl();
         BetRace = ReactiveCommand.Create<int>(ToBetRace);
-        TimerLive();
+        Lives = LivesServices.GetInstance();
+        Lives.TimerLive();
     }
 
     public static MainWindowViewModel GetInstance()
@@ -47,9 +48,6 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     private byte[] _ImageComingRace;
     private int _IdComingRace;
     private ObservableCollection<RacesCards> _RacesCards;
-    private LivesServices Lives;
-    private TimeSpan dateDiff;
-    private static System.Timers.Timer timer;
 
     public ReactiveCommand<int, Unit> BetRace { get; }
 
@@ -162,7 +160,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         using (var context = new DatabaseConnection())
         {
             var races = context.Races.ToList();
-            var racesNow = races.FindAll(x => x.Start > DateTime.Now).ToList();
+            var racesNow = races.FindAll(x => x.Start > DateTime.Now).OrderBy(x => x.Start).ToList();
             if (racesNow.Count > 4)
             {
                 var racesAfter4 = racesNow.GetRange(4, racesNow.Count - 4).ToList();
@@ -180,7 +178,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
                         Title = race.Title
                     });
                 }
-                var racesCardsListOrdered = racesCardsList.OrderBy(x => x.Start);
+                var racesCardsListOrdered = racesCardsList.OrderBy(x => x.Start).ToList();
                 RacesCards = new ObservableCollection<RacesCards>(racesCardsListOrdered);
             }
         }
@@ -213,35 +211,8 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
             nameof(RegisterControl) => new RegisterControl(),
             nameof(RankingControl) => new RankingControl(),
             nameof(HistoryControl) => new HistoryControl(),
+            nameof(LiveControl) => new LiveControl(),
             _ => new HomeControl()
         };
-    }
-
-    // timer
-
-    private void TimerLive()
-    {
-        new RacesServices();
-        if (UserService.IsAuthentifiedAsUser)
-        {
-            new BetServices();
-        }
-        Lives = LivesServices.GetInstance();
-        this.dateDiff = int.IsNegative(Lives.GetNextRaceDiff().Seconds) ? Lives.GetStopLive() : Lives.GetNextRaceDiff();
-        timer = new Timer();
-        timer.Elapsed += OnTimer;
-        timer.Interval = 1000;
-        timer.Enabled = true;
-    }
-
-    private void OnTimer(object source, ElapsedEventArgs args)
-    {
-        // way to decrease seconds
-        dateDiff = dateDiff.Add(new TimeSpan(0, 0, 0, -1));
-        if (int.IsNegative(dateDiff.Seconds))
-        {
-            timer.Stop();
-            TimerLive();
-        }
     }
 }

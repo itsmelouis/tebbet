@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Tebbet.Controls.LiveControl"
+			 xmlns:vm="using:Tebbet.ViewModels"
+			 x:DataType="vm:LiveViewModel"
+			 xmlns:converter="clr-namespace:Tebbet.Converter"
+			 >
+
+	<UserControl.Styles>
+		<StyleInclude Source="/Assets/Styles/AppStyles.axaml" />
+	</UserControl.Styles>
+
+	<Design.DataContext>
+		<vm:LiveViewModel />
+	</Design.DataContext>
+
+	<UserControl.Resources>
+		<converter:BytesConverter x:Key="BytesConverter"/>
+	</UserControl.Resources>
+
+	<StackPanel HorizontalAlignment="Center">
+		<!-- Chrono de la prochaine course en live -->
+		<Border Width="240" Background="White" Margin="0 20" CornerRadius="15">
+			<StackPanel Orientation="Vertical">
+				<StackPanel Orientation="Horizontal">
+					<Image VerticalAlignment="Top" Margin="10 15" Width="24" Height="24" Source="avares://Tebbet/Assets/chrono.png" />
+					<TextBlock Height="16" Margin="0 17" FontSize="18" VerticalAlignment="Top" Classes="LakkiBlack" Text="En live dans :" />
+				</StackPanel>
+				<TextBlock HorizontalAlignment="Center" Classes="LakkiBlack" FontSize="22" Text="{Binding Chrono}" Width="157" />
+			</StackPanel>
+		</Border>
+
+		<!-- Carte de la prochaine course -->
+		<Border Background="Transparent" ClipToBounds="True" CornerRadius="10" Margin="0 20 0 10">
+			<Grid ColumnDefinitions="250, 220" >
+				<Image Name="ImgComingRace" Source="{Binding ImageComingRace, Converter={StaticResource BytesConverter}}" Stretch="Fill" Width="251" Height="150" />
+				<Grid RowDefinitions="40, 20, 20, *" Grid.Column="1" Background="#374F3E" >
+					<TextBlock HorizontalAlignment="Center" FontSize="10" Margin="0 5 0 0" Classes="LakkiWhite" Text="{Binding HeaderComingRace}" />
+					<TextBlock Grid.Row="1" FontSize="9" Classes="LakkiGray" Margin="10 0 0 0" Text="{Binding DateComingRace}" />
+					<TextBlock Grid.Row="2" FontSize="12" Classes="LakkiWhite" Margin="10 0 0 0" Padding="0 0 10 0" Text="{Binding AdressComingRace}"/>
+					<Button Grid.Row="3" Classes="LakkiBlack BetButton" Command="{Binding BetRace}" CommandParameter="{Binding IdComingRace}" />
+				</Grid>
+			</Grid>
+		</Border>
+	</StackPanel>
+	
+</UserControl>

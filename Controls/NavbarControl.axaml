@@ -18,7 +18,7 @@
 			
 			<Grid ColumnDefinitions="auto, auto, auto, auto" RowDefinitions="auto" Grid.Column="1">
 				<Button Classes="NavButton NavLink LakkiWhite Home" Content="Accueil" Click="ButtonClick"/>
-				<Button Classes="NavButton NavLink LakkiWhite Directs" Grid.Column="1" Content="{Binding Live}" Click="ButtonClick" />
+				<Button Classes="NavButton NavLink LakkiWhite Lives" Grid.Column="1" Content="{Binding Live}" Click="ButtonClick" />
 				<Button Classes="NavButton NavLink LakkiWhite Ranking" Grid.Column="2" Content="Classement" Click="ButtonClick" />
 				<Button Classes="NavButton NavLink LakkiWhite" Grid.Column="3" Content="Fidélité" />
 			</Grid>
