@@ -15,9 +15,9 @@ namespace Tebbet.Controls
             Withdraw.Click += Handler;
             Deposit.Click += Handler;
             Amount.KeyUp += Handler;
-            Loose.GotFocus += Handler;
-            Win.GotFocus += Handler;
-            All.GotFocus += Handler;
+            Loose.PointerPressed += Handler;
+            Win.PointerPressed += Handler;
+            All.PointerPressed += Handler;
         }
 
         private void Handler(object sender, RoutedEventArgs args)

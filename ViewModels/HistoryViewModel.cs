@@ -90,7 +90,7 @@ namespace Tebbet.ViewModels
                     Has_Won = bet.Has_Won,
                     Has_Lost = bet.Has_Lost,
                     Date_Bet = bet.Date_Bet.ToString("dd/MM/yyyy"),
-                    Bets = bet.Gains / bet.Odds,
+                    Bets = Math.Round(bet.Gains / bet.Odds),
                     Color = bet.Has_Lost ? "#FF3535" : bet.Has_Won ? "#5F8C50" : "Black",
                     Text = bet.Has_Lost ? "Pertes: " : "Gains: "
                 };

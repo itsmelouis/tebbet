@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
 using Avalonia.Media.Imaging;
 using ImageExample.Helpers;
 using ReactiveUI;
@@ -8,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
+using System.Timers;
 using Tebbet.Controls;
 using Tebbet.Database;
 using Tebbet.Models;
@@ -25,6 +27,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
         NavbarControl = new NavbarControl();
         BetRace = ReactiveCommand.Create<int>(ToBetRace);
+        TimerLive();
     }
 
     public static MainWindowViewModel GetInstance()
@@ -44,6 +47,9 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     private byte[] _ImageComingRace;
     private int _IdComingRace;
     private ObservableCollection<RacesCards> _RacesCards;
+    private LivesServices Lives;
+    private TimeSpan dateDiff;
+    private static System.Timers.Timer timer;
 
     public ReactiveCommand<int, Unit> BetRace { get; }
 
@@ -211,4 +217,31 @@ public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         };
     }
 
+    // timer
+
+    private void TimerLive()
+    {
+        new RacesServices();
+        if (UserService.IsAuthentifiedAsUser)
+        {
+            new BetServices();
+        }
+        Lives = LivesServices.GetInstance();
+        this.dateDiff = int.IsNegative(Lives.GetNextRaceDiff().Seconds) ? Lives.GetStopLive() : Lives.GetNextRaceDiff();
+        timer = new Timer();
+        timer.Elapsed += OnTimer;
+        timer.Interval = 1000;
+        timer.Enabled = true;
+    }
+
+    private void OnTimer(object source, ElapsedEventArgs args)
+    {
+        // way to decrease seconds
+        dateDiff = dateDiff.Add(new TimeSpan(0, 0, 0, -1));
+        if (int.IsNegative(dateDiff.Seconds))
+        {
+            timer.Stop();
+            TimerLive();
+        }
+    }
 }

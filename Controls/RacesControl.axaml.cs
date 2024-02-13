@@ -45,11 +45,13 @@ namespace Tebbet.Controls
 
             var timeStart = TimeStartRace.SelectedTime.Value;
             var dateStart = DateStartRace.SelectedDate.Value.DateTime;
+            dateStart = dateStart.Date;
             dateStart = dateStart.AddHours(timeStart.Hours + 1);
             dateStart = dateStart.AddMinutes(timeStart.Minutes);
 
             var timeEnd = TimeEndRace.SelectedTime.Value;
             var dateEnd = DateEndRace.SelectedDate.Value.DateTime;
+            dateEnd = dateEnd.Date;
             dateEnd = dateEnd.AddHours(timeEnd.Hours + 1);
             dateEnd = dateEnd.AddMinutes(timeEnd.Minutes);
      

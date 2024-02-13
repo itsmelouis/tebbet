@@ -71,14 +71,14 @@
 							<DatePicker Name="DateStartRace" DayFormat="ddd dd" SelectedDate="{Binding Start}"/>
 							<Label Content="L'heure du départ:"/>
 							<TimePicker Name="TimeStartRace" ClockIdentifier="24HourClock"
-				MinuteIncrement="10" />
+				MinuteIncrement="2" />
 						</StackPanel>
 						<StackPanel Margin="20">
 							<Label Content="Choisir une date d'arrivée:"/>
 							<DatePicker Name="DateEndRace" DayFormat="ddd dd" SelectedDate="{Binding End}" />
 							<Label Content="L'heure d'arrivée:"/>
 							<TimePicker Name="TimeEndRace" ClockIdentifier="24HourClock"
-				MinuteIncrement="10" />
+				MinuteIncrement="2" />
 						</StackPanel>
 					</StackPanel>
 

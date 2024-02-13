@@ -36,7 +36,7 @@ namespace Tebbet.Services
                 user_service.SetUserInfo(user);
                 if (user_service.IsAuthentifiedAsUser)
                 {
-                    var betServices = new BetServices();
+                    new BetServices();
                 }
             }
         }
