@@ -23,8 +23,10 @@ namespace Tebbet.Services
             return _instance;
         }
         public TimeSpan dateDiff { get; set; }
+        public TimeSpan nextRaceDiff { get; set; }
         private static Timer timer;
         public event EventHandler timerBeforeLive;
+        public event EventHandler tickRaceLive;
         public event EventHandler onRaceLive;
 
         private LivesServices() 
@@ -64,7 +66,6 @@ namespace Tebbet.Services
                 return diff;
             }
         }
-
         private void TimerBeforeLive()
         {
             timerBeforeLive?.Invoke(this, EventArgs.Empty);
@@ -83,7 +84,8 @@ namespace Tebbet.Services
             {
                 new BetServices();
             }
-            dateDiff = int.IsNegative(this.GetNextRaceDiff().Seconds) ? this.GetStopLive() : this.GetNextRaceDiff();
+            nextRaceDiff = this.GetNextRaceDiff();
+            dateDiff = int.IsNegative(nextRaceDiff.Seconds) && nextRaceDiff.Minutes <= 0 ? this.GetStopLive() : nextRaceDiff;
             timer = new Timer();
             timer.Elapsed += OnTimer;
             timer.Interval = 1000;
@@ -92,14 +94,15 @@ namespace Tebbet.Services
 
         private void OnTimer(object source, ElapsedEventArgs args)
         {
-            // way to decrease seconds
+            // pour enlever 1 seconde
             dateDiff = dateDiff.Add(new TimeSpan(0, 0, 0, -1));
-            // to handle timer
-            if (!int.IsNegative(this.GetNextRaceDiff().Seconds))
+            // compte à rebour
+            if (!int.IsNegative(nextRaceDiff.Seconds))
             {
                 this.TimerBeforeLive();
             }
-            if (int.IsNegative(dateDiff.Seconds))
+            // vérifier si la différence de temps est négative et déclencher de nouveau le timer 
+            if (int.IsNegative(dateDiff.Seconds) && dateDiff.Minutes == 0)
             {
                 timer.Stop();
                 TimerLive();

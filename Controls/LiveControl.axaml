@@ -6,8 +6,7 @@
              x:Class="Tebbet.Controls.LiveControl"
 			 xmlns:vm="using:Tebbet.ViewModels"
 			 x:DataType="vm:LiveViewModel"
-			 xmlns:converter="clr-namespace:Tebbet.Converter"
-			 >
+			 xmlns:converter="clr-namespace:Tebbet.Converter">
 
 	<UserControl.Styles>
 		<StyleInclude Source="/Assets/Styles/AppStyles.axaml" />
@@ -23,7 +22,7 @@
 
 	<StackPanel HorizontalAlignment="Center">
 		<!-- Chrono de la prochaine course en live -->
-		<Border Width="240" Background="White" Margin="0 20" CornerRadius="15">
+		<Border Width="240" Background="White" Margin="0 20" CornerRadius="15" IsVisible="{Binding ChronoVisibility}">
 			<StackPanel Orientation="Vertical">
 				<StackPanel Orientation="Horizontal">
 					<Image VerticalAlignment="Top" Margin="10 15" Width="24" Height="24" Source="avares://Tebbet/Assets/chrono.png" />
@@ -41,9 +40,39 @@
 					<TextBlock HorizontalAlignment="Center" FontSize="10" Margin="0 5 0 0" Classes="LakkiWhite" Text="{Binding HeaderComingRace}" />
 					<TextBlock Grid.Row="1" FontSize="9" Classes="LakkiGray" Margin="10 0 0 0" Text="{Binding DateComingRace}" />
 					<TextBlock Grid.Row="2" FontSize="12" Classes="LakkiWhite" Margin="10 0 0 0" Padding="0 0 10 0" Text="{Binding AdressComingRace}"/>
-					<Button Grid.Row="3" Classes="LakkiBlack BetButton" Command="{Binding BetRace}" CommandParameter="{Binding IdComingRace}" />
+					<Button Grid.Row="3" Classes="LakkiBlack BetButton" Command="{Binding BetRace}" IsVisible="{Binding ChronoVisibility}" CommandParameter="{Binding IdComingRace}" />
 				</Grid>
 			</Grid>
+		</Border>
+		
+		<!-- Escargots dans la course -->
+		<Border Width="400" Background="White" Margin="0 20" CornerRadius="15" IsVisible="{Binding !ChronoVisibility}">
+			<StackPanel Orientation="Vertical">
+				<StackPanel Orientation="Horizontal">
+					<Image VerticalAlignment="Top" Margin="10 15" Width="22" Height="22" Source="avares://Tebbet/Assets/race.png" />
+					<TextBlock Height="16" Margin="0 15" FontSize="18" VerticalAlignment="Top" Classes="LakkiBlack" Text="Course" />
+				</StackPanel>
+				
+				<!-- Chaque escargot -->
+				<ItemsControl ItemsSource="{Binding SnailInRaceList}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<StackPanel>
+								<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10 00">
+									<Border Background="#5F8C50" CornerRadius="100" Width="25" Height="25">
+										<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0 4 0 0" Classes="LakkiWhite" Text="{Binding rank}" FontSize="18"/>
+									</Border>
+									<TextBlock FontSize="18" Classes="LakkiBlack" Margin="10,0,0,0" Height="19"  Text="{Binding name}" />
+								</StackPanel>
+								<StackPanel Orientation="Vertical" Margin="0 10">
+									<Image Margin="{Binding position_margin}" Width="25" Source="avares://Tebbet/Assets/blacksnail.png" HorizontalAlignment="Left"/>
+									<Border Width="350" Height="1" Background="Gray"  />
+								</StackPanel>
+							</StackPanel>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</StackPanel>
 		</Border>
 	</StackPanel>
 	
