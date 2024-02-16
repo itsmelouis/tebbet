@@ -119,7 +119,13 @@ public class RegisterViewModel : ViewModelBase, INotifyPropertyChanged
     private bool IsPasswordValid(string password, string confirmPassword)
     {
         bool error = false;
-        string regex = @"^(?=.*[A-Z])(?=.*\d)(?=.*\W).+$";
+        // regex pour une politique de mot de passe suivant ces règles suivantes : 
+        // - au moins une majuscule
+        // - au moins une minuscule
+        // - au moins un chiffre
+        // - au moins un caractère spécial (dont voici une liste @$!%*?&_-())
+        // - le mot de passe doit au moins faire 8 caractères de longueur minimum
+        string regex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-()])[A-Za-z\d@$!%*?&_()]{8,}$";
         if (!Regex.IsMatch(password, regex))
         {
             AddError("Le mot de passe doit contenir au minimum une majuscule, un chiffre et un caractère spécial.");

@@ -47,7 +47,7 @@
 								<DataGridTemplateColumn.CellTemplate>
 									<DataTemplate>
 										<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-											<Button Background="Transparent" Click="" Margin="5" CommandParameter="{Binding id}" Command="{Binding #TableCircuits.((vm:AdminCircuitViewModel)DataContext).UpdateCommand}">
+											<Button Background="Transparent" Margin="5" CommandParameter="{Binding id}" Command="{Binding #TableCircuits.((vm:AdminCircuitViewModel)DataContext).UpdateCommand}">
 												<Button.Content>
 													<Image Source="avares://Tebbet/Assets/pen.png" Width="14" />
 												</Button.Content>
