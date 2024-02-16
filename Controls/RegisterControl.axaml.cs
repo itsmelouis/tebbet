@@ -12,12 +12,13 @@ namespace Tebbet.Controls
 {
     public partial class RegisterControl : UserControl
     {
-        private readonly RegisterViewModel viewModel;
+        private readonly RegisterViewModel registerViewModel;
+        private readonly LoginViewModel loginViewModel;
         public RegisterControl()
         {
             InitializeComponent();
-            viewModel = new RegisterViewModel();
-            DataContext = viewModel;
+            registerViewModel = new RegisterViewModel();
+            DataContext = registerViewModel;
             Birthdate.LostFocus += Handler;
             Mail.LostFocus += Handler;
             PostalCode.LostFocus += Handler;
@@ -33,13 +34,13 @@ namespace Tebbet.Controls
                     switch (textbox.Name) 
                     {
                         case "Birthdate":
-                            viewModel.IsBirthdateValid(textbox.Text);
+                            registerViewModel.IsBirthdateValid(textbox.Text);
                             break;
                         case "Mail":
-                            viewModel.IsMailValid(textbox.Text);
+                            registerViewModel.IsMailValid(textbox.Text);
                             break;
                         case "PostalCode":
-                            viewModel.IsPostalCodeValid(textbox.Text);
+                            registerViewModel.IsPostalCodeValid(textbox.Text);
                             break;
                     }
                 }
@@ -49,7 +50,7 @@ namespace Tebbet.Controls
             {
                 if (new[] {Lastname.Text, Firstname.Text, Mail.Text, Address.Text, PostalCode.Text, City.Text, Birthdate.Text, Password.Text, PasswordConfirmation.Text } is string[] formData && formData.All(s => !string.IsNullOrEmpty(s)))
                 {
-                    viewModel.VerifyRegister(formData);
+                    registerViewModel.VerifyRegister(formData);
                 }                
             }
         }

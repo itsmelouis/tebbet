@@ -50,21 +50,21 @@ namespace Tebbet.Services
         public event EventHandler CreditsEvent;
 
 
-        public void SetUserInfo(List<Users> user)
+        public void SetUserInfo(Users user)
         {
             if (user != null)
             {
-                Email = user[0].Email;
-                Lastname = user[0].Lastname;
-                Firstname = user[0].Firstname;
-                Birthdate = user[0].Birthdate;
-                Address = user[0].Address;
-                Postalcode = user[0].Postalcode;
-                City = user[0].City;
-                Password = user[0].Password;
-                Credits = user[0].Credits;
-                Phone = user[0].Phone;
-                Role = user[0].Role;
+                Email = user.Email;
+                Lastname = user.Lastname;
+                Firstname = user.Firstname;
+                Birthdate = user.Birthdate;
+                Address = user.Address;
+                Postalcode = user.Postalcode;
+                City = user.City;
+                Password = user.Password;
+                Credits = user.Credits;
+                Phone = user.Phone;
+                Role = user.Role;
                 IsAuthentified = true;
 
                 if (Role == "admin")

@@ -14,23 +14,23 @@ namespace Tebbet.Services
         {
             using (var context = new DatabaseConnection())
             {
-                var User = context.Users
-                    .Where(p => p.Email.Equals(mail))
-                    .ToList();
+                var user = context.Users
+                    .FirstOrDefault(p => p.Email.Equals(mail));
 
-                if (User.Count > 0)
+
+                if (user != null)
                 {
-                    if (BCrypt.Net.BCrypt.Verify(password, User[0].Password))
+                    if (BCrypt.Net.BCrypt.Verify(password, user.Password))
                     {
-                        ProcessAuthentication(User);
+                        ProcessAuthentication(user);
                     }
                 }
             }
         }
 
-        private static void ProcessAuthentication(List<Users> user)
+        private static void ProcessAuthentication(Users user)
         {
-            if (user.Count == 1)
+            if (user != null)
             {
                 var user_service = UserService.GetInstance();
                 user_service.SetUserInfo(user);
